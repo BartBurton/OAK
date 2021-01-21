@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("_MetatagsPartial")
+    @await Html.PartialAsync("_CssPartial")
+</head>
+<body>
+    <div class="wraper">
+
+        @await Html.PartialAsync("_HeaderPartial")
+
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        @await Html.PartialAsync("_FooterPartial")
+
+    </div>
+</body>
+</html>

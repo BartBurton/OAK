@@ -1,0 +1,74 @@
+﻿@model IQueryable<OAK.Article>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="half_article">
+
+            <div class="half_article_title_inf">
+
+            </div>
+
+            <div class="half_article_content_inf">
+
+            </div>
+
+
+        </div>
+     }
+
+    <!-- Полу-статья -->
+    <div class="half_article">
+
+        <div class="half_article_title_inf">
+
+            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+                <h1 class="half_article_title">Title</h1>
+            </a>
+            <img class="half_article_favorite" src="css/icons/yes leaf.png">
+
+        </div>
+
+        <div class="half_article_content_inf">
+            <img class="half_article_prewie" src="css/icons/acorn.png" />
+
+            <p class="half_article_text">
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+            </p>
+        </div>
+
+        <div class="botton">
+            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+                Раздел
+            </a>
+        </div>
+
+        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+            <div class="half_article_autor">
+                <img class="half_article_autor_img" src="css/icons/acorn.png" />
+                <div class="half_article_autor_name">deleted</div>
+            </div>
+        </a>
+
+        <div class="half_article_date">00.00.0000</div>
+    </div>
+
+
+
+    <div class="botton">
+        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+            Назад
+        </a>
+    </div>
+
+    <div class="botton">
+        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+            Ещё
+        </a>
+    </div>
+</div>

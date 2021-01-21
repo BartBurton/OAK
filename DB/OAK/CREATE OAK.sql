@@ -1,0 +1,25 @@
+USE master;
+
+CREATE DATABASE OAK
+ON PRIMARY	
+(
+	NAME = OAK_dat,
+	FILENAME = 'D:\OAKDB\oakdat.mdf',
+	SIZE = 64,
+	MAXSIZE = 128,
+	FILEGROWTH = 8
+),
+FILEGROUP FileStreamGroup CONTAINS FILESTREAM
+(
+	NAME = OAK_files,
+	FILENAME = 'D:\OAKDB\filestream'
+)
+LOG ON
+(
+	NAME = OAK_log,
+	FILENAME = 'D:\OAKDB\oaklog.ldf',
+	SIZE = 32,
+	MAXSIZE = 64,
+	FILEGROWTH = 8
+)
+GO
