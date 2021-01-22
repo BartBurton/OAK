@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace OAK
+namespace OAK.Models
 {
     public partial class Section
     {

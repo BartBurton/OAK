@@ -19,7 +19,8 @@ namespace OAK.Controllers
 
         public IActionResult Articles(int start = 0)
         {
-            if (start < 0) start = 0;
+            
+           if (start < 0) start = 0;
 
             var articles = _oak.Articles.Skip(start * _countOfEl).Take(_countOfEl);
 

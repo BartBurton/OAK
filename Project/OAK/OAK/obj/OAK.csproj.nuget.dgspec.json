@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\OAK.csproj": {}
+    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\OAK.csproj": {
+    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\OAK.csproj",
+        "projectUniqueName": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
         "projectName": "OAK",
-        "projectPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\OAK.csproj",
+        "projectPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
         "packagesPath": "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\obj\\",
+        "outputPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

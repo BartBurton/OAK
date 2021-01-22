@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hPFahfCCljb4yKSF60dn3VtW/b1IroG0sJT1mXZ6lRajt/kvjAwn6bw9nCg3Kh9/rvVgjaKXxMjeCre40GU5ug==",
+  "dgSpecHash": "2iX7Jv2GAvVolDfFRXTeuxAsCoJltvETcfbbpS3Ej/Uy/7eEIJskRVmMcu9caH2UVfaE/ZbzASZNaecQAye/cA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\Project\\OAK\\OAK\\OAK.csproj",
+  "projectFilePath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

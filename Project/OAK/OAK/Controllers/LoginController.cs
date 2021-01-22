@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OAK.Models.Login;
 
 namespace OAK.Controllers
 {
@@ -15,9 +16,23 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
+        [HttpGet]
         public IActionResult Registration()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registration(RegistrationModel rmodel)
+        {
+            if(ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult SignIn()

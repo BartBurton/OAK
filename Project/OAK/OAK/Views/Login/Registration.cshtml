@@ -1,1 +1,38 @@
-﻿
+﻿@model OAK.Models.Login.RegistrationModel
+
+@{
+    Layout = "_LayoutLogin";
+}
+
+<form class="sign_form" asp-action="Registration" asp-controller="Login" method="post">
+
+    <br>
+    <label asp-for="Name">Псевдоним</label>
+    <br>
+    <input class="sign_form" asp-for="Name">
+    <br>
+
+    <br>
+    <label asp-for="Email">Электронная почта</label>
+    <br>
+    <input class="sign_form" asp-for="Email">
+    <br>
+
+    <br>
+    <label asp-for="Password">Пароль</label>
+    <br>
+    <input class="sign_form" asp-for="Password">
+    <br>
+
+    <br>
+    <label asp-for="ConfirmPassword">Повтор пароля</label>
+    <br>
+    <input class="sign_form" asp-for="ConfirmPassword">
+    <br>
+
+    <br>
+    <button class="standart_buttom" type="submit">Зарегистрироваться</button>
+    <br>
+    <br>
+
+</form>
