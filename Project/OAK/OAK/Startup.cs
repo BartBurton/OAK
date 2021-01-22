@@ -27,6 +27,8 @@ namespace OAK
         {
             services.AddControllersWithViews();
 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             services.AddDbContext<OAKContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("OAKContext")));
 

@@ -45,7 +45,8 @@ img.logo {
   font-size: 20pt;
   color: #747a8d;
 }
-input.sign_form {
+
+.sign_input {
   width: 350px;
   border: 1px solid #747a8d;
   border-radius: 5px;
@@ -57,8 +58,21 @@ input.sign_form {
   padding-bottom: 2px;
   outline: none;
 }
+
+.input-validation-error {
+    border: 1px solid #FF0000;
+}
+
+.field-validation-error {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #FF0000;
+}
+
+
+
 input:focus.sign_form {
-  background-color: rgba(116, 122, 141, 0.16);
+    background-color: rgba(116, 122, 141, 0.16);
 }
 
 button.standart_buttom {
