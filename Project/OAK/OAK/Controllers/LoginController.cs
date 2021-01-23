@@ -36,25 +36,68 @@ namespace OAK.Controllers
             return View();
         }
 
+
+        [HttpGet]
         public IActionResult SignIn()
         {
+            ViewBag.Title = "Вход ДУБ";
             return View();
         }
 
+        [HttpPost]
+        public IActionResult SignIn(SingInModel smodel)
+        {
+            ViewBag.Title = "Вход ДУБ";
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            return View();
+        }
+
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
+            ViewBag.Title = "Восстановление пароля";
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ForgotPassword(EmailModel smodel)
+        {
+            ViewBag.Title = "Восстановление пароля";
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            return View("Code");
+        }
+
+        [HttpPost]
         public IActionResult Code()
         {
-            return View();
+            ViewBag.Title = "Проверка кода";
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            return View("NewPassword");
         }
 
         public IActionResult NewPassword()
         {
             return View();
         }
+
+
+
 
         [HttpPost]
         public JsonResult CheckEmail(string email)

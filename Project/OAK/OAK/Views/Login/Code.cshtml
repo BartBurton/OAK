@@ -1,1 +1,36 @@
-﻿
+﻿@model OAK.Models.Login.CodeModel
+
+@{
+    Layout = "_LayoutLogin";
+}
+
+<form class="sign_form" asp-action="Code" asp-controller="Login" method="post">
+
+    <br>
+    <label asp-for="Code">Полученный по email код</label>
+    <br>
+    <input class="sign_input" asp-for="Code">
+    <br>
+    <span asp-validation-for="Code"></span>
+    <br>
+
+    <br>
+    <button class="standart_buttom" type="submit">Продолжить</button>
+    <br>
+    <br>
+
+    <p>
+        <a class="forgot" asp-action="SignIn" asp-controller="Login">
+            Войти
+        </a>
+    </p>
+    <br>
+
+    <p>
+        <a class="forgot" asp-action="Registration" asp-controller="Login">
+            Регистрация
+        </a>
+    </p>
+    <br>
+
+</form>

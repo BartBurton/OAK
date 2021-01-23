@@ -1,1 +1,44 @@
-﻿
+﻿@model OAK.Models.Login.SingInModel
+
+@{
+    Layout = "_LayoutLogin";
+}
+
+<form class="sign_form" asp-action="SignIn" asp-controller="Login" method="post">
+
+    <br>
+    <label asp-for="Email">Электронная почта</label>
+    <br>
+    <input class="sign_input" asp-for="Email">
+    <br>
+    <span asp-validation-for="Email"></span>
+    <br>
+
+    <br>
+    <label asp-for="Password">Пароль</label>
+    <br>
+    <input class="sign_input" asp-for="Password">
+    <br>
+    <span asp-validation-for="Password"></span>
+    <br>
+
+    <br>
+    <button class="standart_buttom" type="submit">Войти</button>
+    <br>
+    <br>
+
+    <p>
+        <a class="forgot" asp-action="Registration" asp-controller="Login">
+            Регистрация
+        </a>
+    </p>
+    <br>
+
+    <p>
+        <a class="forgot" asp-action="ForgotPassword" asp-controller="Login">
+            Не помню пароль
+        </a>
+    </p>
+    <br>
+
+</form>
