@@ -1,23 +1,19 @@
 ﻿<header>
-    <!-- Блоги -->
-    <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+    <a asp-controller="Articles" asp-action="Articles">
         <img class="header_oak_icon" src="~/icons/oak.png">
         <div class="header_oak_name">ДУБ</div>
     </a>
 
-    <!-- Разделы -->
-    <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+    <a asp-controller="Sections" asp-action="Sections">
         <div class="header_branch_name">Ветви</div>
         <img class="header_branch_icon" src="~/icons/branch.png">
     </a>
 
-    <!-- Профиль -->
-    <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-        <img class="header_profile" src="~/icons/acorn.png">
+    <a asp-controller="Profile" asp-action="Profile">
+        <img class="header_profile" src="~/icons/user.png">
     </a>
 
-    <!-- Новости из избранного -->
-    <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+    <a asp-controller="Articles" asp-action="ArticlesNewsFavorite">
         <img class="header_favorite" src="~/icons/leaf.png">
     </a>
 </header>

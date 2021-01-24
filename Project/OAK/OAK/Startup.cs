@@ -34,7 +34,7 @@ namespace OAK
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie
             (options => {
-                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/SignIn");
             });
         }
 
@@ -63,7 +63,7 @@ namespace OAK
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Articles}/{action=Articles}/{id?}");
+                    pattern: "{controller=Start}/{action=Index}/{id?}");
             });
         }
     }

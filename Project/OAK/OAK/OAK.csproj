@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\" />
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\js\jquery.bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\jquery.bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\js\jquery.bundle.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OAK.Models.Login;
+using OAK.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace OAK.Controllers
 {
@@ -24,7 +30,7 @@ namespace OAK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(RegistrationModel rmodel)
+        public async Task<IActionResult> Registration(RegistrationModel model)
         {
             ViewBag.Title = "Регистрация";
 
@@ -32,8 +38,31 @@ namespace OAK.Controllers
             {
                 return View();
             }
+            if (await CheckEmail(model.Email))
+            {
+                ModelState.AddModelError("Email", "Пользователь с данной электронной почтой уже зарегистрирован!");
+                return View();
+            }
+            if (await CheckPassword(model.Password))
+            {
+                ModelState.AddModelError("Password", "Данный пароль уже используется!");
+                return View();
+            }
 
-            return View();
+            Autor autor = new Autor();
+            autor.Name = model.Name;
+            autor.Email = model.Email;
+            autor.Password = model.Password;
+            autor.Idavatar = Guid.NewGuid();
+            using (BinaryReader br = new BinaryReader(new FileStream("wwwroot/icons/acorn.png", FileMode.Open)))
+            {
+                autor.Avatar = br.ReadBytes((int)br.BaseStream.Length);
+            }
+            //_oak.Autors.Add(autor);
+            //_oak.SaveChanges();
+            await Authenticate(model.Email);
+
+            return RedirectToAction("Articles", "Articles");
         }
 
 
@@ -45,7 +74,7 @@ namespace OAK.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn(SingInModel smodel)
+        public async Task<IActionResult> SignIn(SingInModel model)
         {
             ViewBag.Title = "Вход ДУБ";
 
@@ -53,8 +82,20 @@ namespace OAK.Controllers
             {
                 return View();
             }
+            if (! await CheckEmail(model.Email))
+            {
+                ModelState.AddModelError("Email", "Электронная почта не найдена!");
+                return View();
+            }
+            if (! await CheckEmailPassword(model.Email, model.Password))
+            {
+                ModelState.AddModelError("Password", "Неверный пароль!");
+                return View();
+            }
 
-            return View();
+            await Authenticate(model.Email);
+
+            return RedirectToAction("Articles", "Articles");
         }
 
 
@@ -66,7 +107,7 @@ namespace OAK.Controllers
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword(EmailModel smodel)
+        public async Task<IActionResult> ForgotPassword(EmailModel model)
         {
             ViewBag.Title = "Восстановление пароля";
 
@@ -74,12 +115,26 @@ namespace OAK.Controllers
             {
                 return View();
             }
+            if (! await CheckEmail(model.Email))
+            {
+                ModelState.AddModelError("Email", "Электронная почта не найдена!");
+                return View();
+            }
 
             return View("Code");
         }
 
-        [HttpPost]
+
+        [HttpGet]
         public IActionResult Code()
+        {
+            ViewBag.Title = "Проверка кода";
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Code(CodeModel model)
         {
             ViewBag.Title = "Проверка кода";
 
@@ -91,32 +146,59 @@ namespace OAK.Controllers
             return View("NewPassword");
         }
 
+
+        [HttpGet]
         public IActionResult NewPassword()
         {
+            ViewBag.Title = "Смена пароля";
+
             return View();
         }
 
-
-
-
         [HttpPost]
-        public JsonResult CheckEmail(string email)
+        public async Task<IActionResult> NewPassword(NewPasswordModel model)
         {
-            if (_oak.Autors.Any(a => a.Email == email))
+            ViewBag.Title = "Смена пароля";
+
+            if (!ModelState.IsValid)
             {
-                return Json(false);
+                return View();
             }
-            return Json(true);
+            if (!await CheckEmail(model.Email))
+            {
+                ModelState.AddModelError("Email", "Электронная почта не найдена!");
+                return View();
+            }
+            if (await CheckPassword(model.Password))
+            {
+                ModelState.AddModelError("Password", "Данный пароль уже используется!");
+                return View();
+            }
+
+            Autor autor = await _oak.Autors.FirstAsync(a => a.Email == model.Email);
+            autor.Password = model.Password;
+            _oak.SaveChanges();
+
+            await Authenticate(model.Email);
+
+            return RedirectToAction("Articles", "Articles");
         }
 
-        [HttpPost]
-        public JsonResult CheckPassword(string password)
+
+
+        private Task<bool> CheckEmail(string email) => _oak.Autors.AnyAsync(a => a.Email == email);
+
+        private Task<bool> CheckPassword(string password) => _oak.Autors.AnyAsync(a => a.Password == password);
+
+        private Task<bool> CheckEmailPassword(string email, string password) => 
+            _oak.Autors.AnyAsync(a => a.Email == email && a.Password == password);
+
+
+        private async Task Authenticate(string email)
         {
-            if (_oak.Autors.Any(a => a.Password == password))
-            {
-                return Json(false);
-            }
-            return Json(true);
+            var claims = new List<Claim>() { new Claim(ClaimsIdentity.DefaultNameClaimType, email) };
+            ClaimsIdentity identity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
         }
     }
 }

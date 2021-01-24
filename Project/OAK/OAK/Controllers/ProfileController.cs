@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using OAK.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace OAK.Controllers
 {
@@ -15,9 +18,17 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
-        public IActionResult Profile()
+        [Authorize]
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+
+            if(autor == null)
+            {
+                return RedirectToAction("SignIn", "Login");
+            }
+
+            return View(autor);
         }
     }
 }

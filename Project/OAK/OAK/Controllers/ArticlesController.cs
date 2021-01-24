@@ -44,5 +44,10 @@ namespace OAK.Controllers
         {
             return View();
         }
+
+        public IActionResult ArticlesNewsFavorite(long? id, int start)
+        {
+            return View();
+        }
     }
 }

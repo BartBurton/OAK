@@ -475,3 +475,4 @@ C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнт
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\OAK.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Shared\_jsPartial.cshtml.g.cs

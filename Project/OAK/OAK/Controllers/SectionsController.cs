@@ -15,17 +15,22 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
-        public IActionResult SectionFAvorite()
+        public IActionResult Sections()
         {
             return View();
         }
 
-        public IActionResult SectionParent()
+        public IActionResult SectionsFAvorite()
         {
             return View();
         }
 
-        public IActionResult SectionChildren()
+        public IActionResult SectionsParent()
+        {
+            return View();
+        }
+
+        public IActionResult SectionsChildren()
         {
             return View();
         }

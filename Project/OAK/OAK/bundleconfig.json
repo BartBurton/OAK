@@ -1,0 +1,10 @@
+[
+  {
+    "outputFileName": "wwwroot/js/jquery.bundle.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.min.js",
+      "wwwroot/js/jquery.validate.min.js",
+      "wwwroot/js/jquery.validate.unobtrusive.min.js"
+    ]
+  }
+]
