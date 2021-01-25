@@ -660,10 +660,10 @@ a.a_botton {
   height: 50px;
   width: 50px;
   background-size: 50px;
-  background-image: url(/css/icons/no\ leaf.png);
+  background-image: url(/icons/no\ leaf.png);
 }
 .some_favorite_lable input[type=checkbox]:checked + span:before{
-  background-image: url(/css/icons/yes\ leaf.png);
+  background-image: url(/icons/yes\ leaf.png);
 }
 
 
@@ -923,15 +923,21 @@ a.a_botton {
   margin-bottom: 20px;
 }
 
+.profile_settings{
+    float:right;
+    width: 50px;
+    height: 50px;
+}
+
 .profile_howmuch {
-  float: left;
-  margin-left: 100px;
-  margin-right: 400px;
-  margin-bottom: 80px;
-  margin-top: 10px;
-  color: #747a8d;
-  font-size: 15pt;
-  font-weight: bold;
+    float: left;
+    margin-left: 100px;
+    margin-right: 400px;
+    margin-bottom: 80px;
+    margin-top: 10px;
+    color: #747a8d;
+    font-size: 15pt;
+    font-weight: bold;
 }
 .profile_make {
   float: right;

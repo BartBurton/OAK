@@ -58,8 +58,8 @@ namespace OAK.Controllers
             {
                 autor.Avatar = br.ReadBytes((int)br.BaseStream.Length);
             }
-            //_oak.Autors.Add(autor);
-            //_oak.SaveChanges();
+            _oak.Autors.Add(autor);
+            _oak.SaveChanges();
             await Authenticate(model.Email);
 
             return RedirectToAction("Articles", "Articles");

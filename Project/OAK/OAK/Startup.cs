@@ -36,6 +36,8 @@ namespace OAK
             (options => {
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/SignIn");
             });
+
+            services.AddTransient<Controllers.Services.ICurrentUser, Controllers.ProfileController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +65,7 @@ namespace OAK
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Start}/{action=Index}/{id?}");
+                    pattern: "{controller=Articles}/{action=Articles}/{id?}");
             });
         }
     }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OAK.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : Controller, Services.ICurrentUser
     {
         private readonly OAKContext _oak;
 
@@ -29,6 +29,19 @@ namespace OAK.Controllers
             }
 
             return View(autor);
+        }
+
+
+        public async Task<Autor> GetInformation()
+        {
+            Autor autor = null;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            }
+
+            return autor;
         }
     }
 }

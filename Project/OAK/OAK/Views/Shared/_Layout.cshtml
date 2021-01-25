@@ -1,8 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@inject ICurrentUser CurrentUser
+@{ 
+    ViewBag.CurrentUser = CurrentUser.GetInformation();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @await Html.PartialAsync("_MetatagsPartial")
     @await Html.PartialAsync("_CssPartial")
+    @await Html.PartialAsync("_jsPartial")
 </head>
 <body>
     <div class="wraper">
@@ -10,6 +16,7 @@
         @await Html.PartialAsync("_HeaderPartial")
 
         <div class="content">
+            <h1>@ViewBag.CurrentUser?.Name</h1>
             @RenderBody()
         </div>
 
