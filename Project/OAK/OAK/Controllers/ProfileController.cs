@@ -36,7 +36,7 @@ namespace OAK.Controllers
         {
             Autor autor = null;
 
-            if (User.Identity.IsAuthenticated)
+            if (User?.Identity.IsAuthenticated == true)
             {
                 autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
             }

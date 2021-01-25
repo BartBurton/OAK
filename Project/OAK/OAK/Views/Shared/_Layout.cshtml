@@ -1,6 +1,6 @@
-﻿@inject ICurrentUser CurrentUser
+﻿@inject ICurrentUser currUser
 @{ 
-    ViewBag.CurrentUser = CurrentUser.GetInformation();
+    Autor CurrentUser = currUser.GetInformation().Result;
 }
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <body>
     <div class="wraper">
 
-        @await Html.PartialAsync("_HeaderPartial")
+        @await Html.PartialAsync("_HeaderPartial", User.Identity.Name)
 
         <div class="content">
             <h1>@ViewBag.CurrentUser?.Name</h1>
