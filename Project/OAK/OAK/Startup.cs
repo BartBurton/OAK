@@ -37,7 +37,8 @@ namespace OAK
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/SignIn");
             });
 
-            services.AddTransient<Controllers.Services.ICurrentUser, Controllers.ProfileController>();
+            services.AddHttpContextAccessor();
+            services.AddTransient<Controllers.Services.ICurrentUser, Controllers.Services.CurrentUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

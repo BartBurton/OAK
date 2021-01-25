@@ -10,7 +10,15 @@
     </a>
 
     <a asp-controller="Profile" asp-action="Profile">
-        <img class="header_profile" src="~/icons/user.png">
+        @if (ViewBag.CurrentUser != null)
+        {
+            @Html.Raw("<img class='header_profile' " +
+            "src=\"data:image/png; base64," + Convert.ToBase64String(ViewBag.CurrentUser.Avatar) + "\" />")
+        }
+        else
+        {
+            <img class="header_profile" src="~/icons/acorn.png">
+        }
     </a>
 
     <a asp-controller="Articles" asp-action="ArticlesNewsFavorite">

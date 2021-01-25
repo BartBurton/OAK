@@ -660,10 +660,10 @@ a.a_botton {
   height: 50px;
   width: 50px;
   background-size: 50px;
-  background-image: url(/icons/no\ leaf.png);
+  background-image: url(~/icons/no\ leaf.png);
 }
 .some_favorite_lable input[type=checkbox]:checked + span:before{
-  background-image: url(/icons/yes\ leaf.png);
+  background-image: url(~/icons/yes\ leaf.png);
 }
 
 

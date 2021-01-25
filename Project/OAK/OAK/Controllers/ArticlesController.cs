@@ -39,12 +39,12 @@ namespace OAK.Controllers
             return View();
         }
 
-        public IActionResult ArticlesFavorite(long? id, int start)
+        public IActionResult FavoriteArticles(long? id, int start)
         {
             return View();
         }
 
-        public IActionResult ArticlesNewsFavorite(long? id, int start)
+        public IActionResult NewsFavoriteArticlese(long? id, int start)
         {
             return View();
         }

@@ -20,7 +20,7 @@ namespace OAK.Controllers
             return View();
         }
 
-        public IActionResult SectionsFAvorite()
+        public IActionResult FavoriteSections()
         {
             return View();
         }

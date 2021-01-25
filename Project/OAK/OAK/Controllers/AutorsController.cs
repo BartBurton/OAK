@@ -15,12 +15,12 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
-        public IActionResult AutorsFavorite(long? id)
+        public IActionResult FavoriteAutors(long? id)
         {
             return View();
         }
 
-        public IActionResult AutorsHaveFavorite(long? id)
+        public IActionResult InFavorites(long? id)
         {
             return View();
         }
