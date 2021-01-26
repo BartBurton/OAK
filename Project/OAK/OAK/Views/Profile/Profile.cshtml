@@ -1,22 +1,29 @@
-﻿<div class="content">
+﻿@model Autor
 
-    @await Html.PartialAsync("_ProfileInformationPartial")
-
-
-    @await Html.PartialAsync("_ProfileInFavoritesPartial")
-
-    @await Html.PartialAsync("_ProfileFavoriteAutorsPartial")
-
-    @await Html.PartialAsync("_ProfileFavoriteSectionsPartial")
+<div class="content">
+    @* Остновная информация о профиле *@
+    @await Html.PartialAsync("_ProfileInformationPartial", Model)
 
 
-    @await Html.PartialAsync("_ProfileFavoriteArticlesPartial")
+    @* Пользователи, у которых данный профиль в избранном *@
+    @await Html.PartialAsync("_ProfileInFavoritesPartial", Model)
+
+    @* Избранные профилем пользователи *@
+    @await Html.PartialAsync("_ProfileFavoriteAutorsPartial", Model)
+
+    @* Избранные профилем разделы *@
+    @await Html.PartialAsync("_ProfileFavoriteSectionsPartial", Model)
 
 
-    @await Html.PartialAsync("_ProfileCreatedArticlesPartial")
+    @* Избранные профилем статьи *@
+    @await Html.PartialAsync("_ProfileFavoriteArticlesPartial", Model)
 
-    @await Html.PartialAsync("_ProfileCreatedSectionsPartial")
 
+    @* Созданные профилем статьи *@
+    @await Html.PartialAsync("_ProfileCreatedArticlesPartial", Model)
+
+    @* Созданные профилем разделы *@
+    @await Html.PartialAsync("_ProfileCreatedSectionsPartial", Model)
 
 
     <div class="out">
@@ -24,5 +31,4 @@
             Выйти
         </a>
     </div>
-
 </div>

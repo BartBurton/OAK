@@ -1,54 +1,32 @@
-﻿<div class="liced_articles">
+﻿@model Autor
+
+<div class="liced_articles">
     <p class="liced_articles_title">Созданные ветви</p>
 
-    <p class="profile_howmuch">Ветвей: 4</p>
-    <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-        <img class="profile_make" src="css/icons/write.png">
+    <p class="profile_howmuch">Ветвей: @Model.Sections.Count</p>
+
+    <a class="a_botton" asp-action="CreateSection" asp-controller="EditSection">
+        <img class="profile_make" src="~/icons/write.png">
     </a>
 
+    @{
+        var sections = Model.Sections;
+        foreach (var item in sections)
+        {
+            <div class="setting_section">
+                <div class="liked_branch section_profile">
+                    <a class="a_botton" asp-action="Section" asp-controller="Section" asp-route-id="@item.Id">
+                        @item.Name
+                    </a>
+                </div>
+                <a class="a_botton" asp-action="EditSection" asp-controller="EditSection" asp-route-id="@Model.Id">
+                    <img class="half_article_favorite " src="~/icons/settings.png">
+                </a>
+            </div>
+        }
+    }
 
-
-    <div class="setting_section">
-        <div class="liked_branch section_profile">
-            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-                Раздел
-            </a>
-        </div>
-        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-            <img class="half_article_favorite " src="css/icons/settings.png">
-        </a>
-    </div>
-
-    <div class="setting_section">
-        <div class="liked_branch section_profile">
-            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-                Раздеawefwergwлwferluifhweoiruwfr
-            </a>
-        </div>
-        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-            <img class="half_article_favorite " src="css/icons/settings.png">
-        </a>
-    </div>
-
-    <div class="setting_section">
-        <div class="liked_branch section_profile">
-            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-                Раздел
-            </a>
-        </div>
-        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-            <img class="half_article_favorite " src="css/icons/settings.png">
-        </a>
-    </div>
-
-    <div class="setting_section">
-        <div class="liked_branch section_profile">
-            <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-                Раздел
-            </a>
-        </div>
-        <a class="a_botton" href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
-            <img class="half_article_favorite " src="css/icons/settings.png">
-        </a>
-    </div>
+    <a class="a_botton" asp-action="CreatedSections" asp-controller="Sections" asp-route-id="@Model.Id">
+        <p class="liced_articles_dots">. . .</p>
+    </a>
 </div>

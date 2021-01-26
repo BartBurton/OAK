@@ -1,8 +1,15 @@
-﻿<div class="autor_inf">
-    <img class="autor_img" src="css/icons/acorn.png">
-    <p class="autor_name">MAXXXYMIRON</p>
-    <a href="https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8">
+﻿@model Autor
+
+<div class="autor_inf">
+
+    @Html.Raw("<img class='autor_img' " +
+    "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Avatar) + "\" />")
+
+    <p class="autor_name">@Model.Name</p>
+
+    <a asp-action="EditProfile" asp-controller="EditProfile">
         <img class="profile_settings" src="~/icons/settings.png">
     </a>
-    <p class="autor_status"> Go fuck your self.</p>
+
+    <p class="autor_status">@Model.Status</p>
 </div>

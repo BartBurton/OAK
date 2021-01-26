@@ -59,18 +59,6 @@ img.logo {
   outline: none;
 }
 
-.input-validation-error {
-    border: 1px solid #FF0000;
-}
-
-.field-validation-error {
-    font-size: 10pt;
-    font-weight: bold;
-    color: #FF0000;
-}
-
-
-
 input:focus.sign_form {
     background-color: rgba(116, 122, 141, 0.16);
 }
@@ -1014,10 +1002,8 @@ a.a_botton {
 }
 .edit_profile_status {
   float: left;
-  max-width: 900px;
-  min-width: 900px;
-  max-height: 197px;
-  min-height: 197px;
+  width: 900px;
+  height: 189px;
   margin-left: 50px;
   margin-top: 50px;
   border: 1px solid #747a8d;
@@ -1218,4 +1204,26 @@ a.a_botton {
   margin-right: 20px;
   margin-bottom: 10px;
   cursor: auto;
+}
+
+.edit_profile_form{
+    margin-left: 50px;
+    width: 1300px;
+}
+
+.edit_profile_drop {
+    float: left;
+    margin-top: 50px;
+    margin-left: 900px;
+    font-size: 12pt;
+}
+
+.input-validation-error {
+    border: 1px solid #FF0000;
+}
+
+.field-validation-error {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #FF0000;
 }

@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OAK.Controllers
 {
+    [Authorize]
     public class EditSectionController : Controller
     {
         private readonly OAKContext _oak;
@@ -31,7 +33,7 @@ namespace OAK.Controllers
             return View();
         }
 
-        public IActionResult DropSection()
+        public IActionResult DropSection(long? id)
         {
             return View();
         }

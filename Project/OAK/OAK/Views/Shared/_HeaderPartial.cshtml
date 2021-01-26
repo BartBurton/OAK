@@ -21,7 +21,17 @@
         }
     </a>
 
-    <a asp-controller="Articles" asp-action="ArticlesNewsFavorite">
-        <img class="header_favorite" src="~/icons/leaf.png">
-    </a>
+    @if (ViewBag.CurrentUser != null)
+    {
+        <a asp-controller="Articles" asp-action="NewsArticleseFromFavorite"
+           asp-route-id="ViewBag.CurrentUser.Id">
+            <img class="header_favorite" src="~/icons/leaf.png">
+        </a>
+    }
+    else
+    {
+        <a asp-controller="Login" asp-action="SignIn">
+            <img class="header_favorite" src="~/icons/leaf.png">
+        </a>
+    }
 </header>

@@ -15,7 +15,7 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
-        public IActionResult Section()
+        public IActionResult Section(long? id)
         {
             return View();
         }

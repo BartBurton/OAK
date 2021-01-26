@@ -11,42 +11,55 @@ namespace OAK.Controllers
         private readonly OAKContext _oak;
 
         private const int _countOfEl = 10;
+        private int _start = 0;
+        private int Start
+        {
+            get => _start;
+            set => _start = (value >= 0) ? value : 0;
+        }
+
 
         public ArticlesController(OAKContext oak)
         {
             _oak = oak;
         }
 
+
         public IActionResult Articles(int start = 0)
         {
-           if (start < 0) start = 0;
+            Start = start;
 
-            var articles = _oak.Articles.Skip(start * _countOfEl).Take(_countOfEl);
+            var articles = _oak.Articles.Skip(Start * _countOfEl).Take(_countOfEl);
 
             ViewBag.Title = "Статьи ДУБа";
-            ViewData["Start"] = ++start;
+            ViewData["Start"] = ++Start;
 
             return View(articles);
         }
 
-        public IActionResult ArticlesAutor(long? id, int start)
+        public IActionResult CreatedArticles(long? id, int start = 0)
         {
+            Start = start;
             return View();
         }
 
-        public IActionResult ArticlesSection(long? id, int start)
+        public IActionResult FavoriteArticles(long? id, int start = 0)
         {
+            Start = start;
             return View();
         }
 
-        public IActionResult FavoriteArticles(long? id, int start)
+        public IActionResult ArticlesSection(long? id, int start = 0)
         {
+            Start = start;
             return View();
         }
 
-        public IActionResult NewsFavoriteArticlese(long? id, int start)
+
+        public IActionResult NewsArticleseFromFavorite(long? id, int start = 0)
         {
-            return View();
+            Start = start;
+            return View("Articles");
         }
     }
 }
