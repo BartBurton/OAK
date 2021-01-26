@@ -18,5 +18,11 @@
     "inputFiles": [
       "wwwroot/css/style.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/makingArticle.min.js",
+    "inputFiles": [
+      "wwwroot/js/makingArticle.js"
+    ]
   }
 ]

@@ -15,7 +15,7 @@ namespace OAK.Models.Edited
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Заполните поле статуса!")]
-        [MaxLength(512, ErrorMessage = "Не больше 16 символов!")]
+        [MaxLength(24, ErrorMessage = "Не больше 24 символов!")]
         public string Status { get; set; }
 
         public IFormFile Avatar { get; set; }

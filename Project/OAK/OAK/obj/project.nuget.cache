@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "y+uA0e+UWGJB+oHA8ce7obHlgCY1hxK3zQHY/Unc0vgZrKjn6Sf1odC2zdhGA6gaufG5mgXe4Mz06Mc7flqvuw==",
+  "dgSpecHash": "1HQplTs7bHuOBvkBKiTLiT8CBxn/EZ+tVamyiUefCEbijQvXKoY1F7YK9no+mlvecO70M7ENQwlyseZ5UiWo2Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\buildbundlerminifier\\3.2.449\\buildbundlerminifier.3.2.449.nupkg.sha512",
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.2\\microsoft.aspnetcore.mvc.razor.extensions.5.0.2.nupkg.sha512",
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.2\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.2.nupkg.sha512",

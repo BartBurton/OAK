@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Настройка статьи</title>
     <link href="css/style.css" type="text/css" rel="stylesheet">
 
-    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <!-- <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
     <script>
-        function addSubtitle(c){
+        function addSubtitle(c) {
             var form = c.parentNode.parentNode.parentNode;
             var num = 1 + Number(c.id);
 
@@ -28,7 +29,7 @@
             // var imgLink = document.createElement('img');
             // imgLink.className = "edit_article_link_img";
             // imgLink.src = "css/icons/link.png";
-            
+
             // var inputLinkWord = document.createElement("input");
             // inputLinkWord.type = "text";
             // inputLinkWord.name = "word" + num;
@@ -56,14 +57,14 @@
             imgImg.src = "css/icons/image.png";
             imgImg.id = num;
             imgImg.title = "Добавить поле загрузки изображения";
-            imgImg.onclick = function() { return addImage(imgImg) };
+            imgImg.onclick = function () { return addImage(imgImg) };
 
             var imgText = document.createElement('img');
             imgText.className = "edit_article_bottons";
             imgText.src = "css/icons/text.png";
             imgText.id = num;
             imgText.title = "Добавить поле ввода текста";
-            imgText.onclick = function() { return addText(imgText) };
+            imgText.onclick = function () { return addText(imgText) };
 
             // divLink.appendChild(imgLink);
             // divLink.appendChild(inputLinkWord);
@@ -81,7 +82,7 @@
             form.appendChild(divSub);
         }
 
-        function addImage(c){
+        function addImage(c) {
             var form = c.parentNode.parentNode.parentNode;
             var num = 1 + Number(c.id);
 
@@ -105,7 +106,7 @@
             var imgPrev = document.createElement('img');
             imgPrev.className = "edit_article_img_prev";
             imgPrev.src = "";
-            imgPrev.onclick = function(){
+            imgPrev.onclick = function () {
                 inputImg.click();
             }
 
@@ -113,52 +114,65 @@
             inputImg.type = "file";
             inputImg.multiple = "image/*";
             inputImg.accept = "image/*";
-            inputImg.name = "file" + num;
+            inputImg.name = "f" + num;
             inputImg.className = "edit_article_img_down";
             inputImg.style = "opacity: 0;";
-            inputImg.addEventListener("change", loadImgFile);
+            inputImg.addEventListener("change",
+                function () {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(inputImg.files[0]);
+                    reader.onload = function (e) {
+                        imgPrev.src = e.target.result;
+                    }
+                });
 
-            function loadImgFile()
-            {
-                var reader = new FileReader();
-                reader.readAsDataURL(inputImg.files[0]);
-                reader.onload = function(e){
-                    imgPrev.src = e.target.result;
-                }
-            }
-            
             var dropImg = document.createElement('img');
             dropImg.className = "edit_article_drop_img";
             dropImg.src = "css/icons/+.png";
-            dropImg.onclick = function(){
+            dropImg.onclick = function () {
                 imgPrev.src = "";
+                console.log(inputImg.files[0]);
+                inputImg.value="";
+                console.log(inputImg.files[0]);
             }
 
+            var downImg = document.createElement('img');
+            downImg.className = "edit_article_img_down_icon";
+            downImg.src = "css/icons/image.png";
+            downImg.onclick = function () {
+                inputImg.click();
+            }
+
+
+
+
             var justDiv = document.createElement('div');
-            
+
             var imgImg = document.createElement('img');
             imgImg.className = "edit_article_bottons";
             imgImg.src = "css/icons/image.png";
             imgImg.id = num;
             imgImg.title = "Добавить поле загрузки изображения";
-            imgImg.onclick = function() { return addImage(imgImg) };
+            imgImg.onclick = function () { return addImage(imgImg) };
 
             var imgText = document.createElement('img');
             imgText.className = "edit_article_bottons";
             imgText.src = "css/icons/text.png";
             imgText.id = num;
             imgText.title = "Добавить поле ввода текста";
-            imgText.onclick = function() { return addText(imgText) };
+            imgText.onclick = function () { return addText(imgText) };
 
             var imgSub = document.createElement('img');
             imgSub.className = "edit_article_bottons";
             imgSub.src = "css/icons/title.png";
             imgSub.id = num;
             imgSub.title = "Добавить поле ввода подзаголовока";
-            imgSub.onclick = function() { return addSubtitle(imgSub) };
+            imgSub.onclick = function () { return addSubtitle(imgSub) };
 
 
+            divPrev.appendChild(dropImg);
             divPrev.appendChild(imgPrev);
+            divPrev.appendChild(downImg);
             divPrev.appendChild(inputImg);
 
             justDiv.appendChild(imgImg);
@@ -168,12 +182,11 @@
             divImg.appendChild(icon);
             divImg.appendChild(divPrev);
             divImg.appendChild(justDiv);
-            divImg.appendChild(dropImg);
 
             form.appendChild(divImg);
         }
 
-        function addText(c){
+        function addText(c) {
             var form = c.parentNode.parentNode.parentNode;
             var num = 1 + Number(c.id);
 
@@ -195,7 +208,7 @@
             // var imgLink = document.createElement('img');
             // imgLink.className = "edit_article_link_img";
             // imgLink.src = "css/icons/link.png";
-            
+
             // var inputLinkWord = document.createElement("input");
             // inputLinkWord.type = "text";
             // inputLinkWord.name = "word" + num;
@@ -223,14 +236,14 @@
             imgImg.src = "css/icons/image.png";
             imgImg.id = num;
             imgImg.title = "Добавить поле загрузки изображения";
-            imgImg.onclick = function() { return addImage(imgImg) };
+            imgImg.onclick = function () { return addImage(imgImg) };
 
             var imgSub = document.createElement('img');
             imgSub.className = "edit_article_bottons";
             imgSub.src = "css/icons/title.png";
             imgSub.id = num;
             imgSub.title = "Добавить поле ввода подзаголовока";
-            imgSub.onclick = function() { return addSubtitle(imgSub) };
+            imgSub.onclick = function () { return addSubtitle(imgSub) };
 
 
             // divLink.appendChild(imgLink);
@@ -279,7 +292,7 @@
         </header>
 
 
-        <div class="content">   
+        <div class="content">
             <form action="">
                 <!-- Раздел -->
                 <label class="edit_section_record">Ветвь:</label>
@@ -312,14 +325,16 @@
                         <textarea name="text0" class="edit_article_textarea"></textarea>
 
                         <div>
-                            <img id="0" class="edit_article_bottons" src="css/icons/image.png" title="Добавить поле загрузки изображения" onclick= "return addImage(this)">
-                            <img id="0" class="edit_article_bottons" src="css/icons/title.png" title="Добавить поле ввода подзаголовока" onclick= "return addSubtitle(this)">
+                            <img id="0" class="edit_article_bottons" src="css/icons/image.png"
+                                title="Добавить поле загрузки изображения" onclick="return addImage(this)">
+                            <img id="0" class="edit_article_bottons" src="css/icons/title.png"
+                                title="Добавить поле ввода подзаголовока" onclick="return addSubtitle(this)">
                         </div>
 
                     </div>
                 </div>
 
-                <button  class="standart_buttom edit_profile_botton">Сохранить</button>
+                <button class="standart_buttom edit_profile_botton">Сохранить</button>
                 <button class="standart_buttom edit_profile_botton">Удалить статью</button>
             </form>
         </div>
@@ -328,4 +343,5 @@
         </footer>
     </div>
 </body>
+
 </html>

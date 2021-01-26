@@ -610,22 +610,22 @@ a.a_botton {
 }
 
 .autor_inf {
-  min-width: 1200px;
-  max-width: 1200px;
-  height: 300px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-left: 60px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #747a8d;
+    max-width: 1200px;
+    height: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 60px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #747a8d;
 }
 .autor_img {
   float: left;
-  max-height: 300px;
-  min-height: 300px;
+  height: 300px;
   width: auto;
   max-width: 300px;
   background-color: #747a8d;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 .autor_name {
   float: left;
@@ -635,30 +635,10 @@ a.a_botton {
   margin-left: 50px;
   margin-bottom: 40px;
 }
-.some_favorite_lable{
-  float: right;
-  margin-right: 100px;
-  background-color: inherit;
-  user-select: none;
-  cursor: pointer;
-}
-.some_favorite_lable span:before{
-  content: "";
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  background-size: 50px;
-  background-image: url(~/icons/no\ leaf.png);
-}
-.some_favorite_lable input[type=checkbox]:checked + span:before{
-  background-image: url(~/icons/yes\ leaf.png);
-}
-
 
 .autor_status {
   float: left;
-  min-width: 800px;
-  max-width: 800px;
+  width: 700px;
   color: #747a8d;
   font-size: 30px;
   margin-left: 50px;
@@ -913,6 +893,7 @@ a.a_botton {
 
 .profile_settings{
     float:right;
+    margin-right:50px;
     width: 50px;
     height: 50px;
 }
@@ -1164,8 +1145,7 @@ a.a_botton {
 }
 .edit_article_img_cont {
   float: left;
-  max-width: 1200px;
-  min-width: 1200px;
+  width: 1200px;
   height: auto;
   border: 1px solid #747a8d;
   border-radius: 5px;
@@ -1185,19 +1165,27 @@ a.a_botton {
 }
 
 .edit_article_img_down {
-  max-width: 1200px;
-  min-width: 1200px;
-  cursor: pointer;
+    width: 1200px;
+    cursor: pointer;
 }
 
-.edit_article_drop_img{
-  float: left;
-  margin-top: 10px;
-  margin-left: 20px;
-  width: auto;
-  max-width: 35px;
-  height: 35px;
-  cursor: pointer;
+.edit_article_drop_img {
+    float: left;
+    margin-bottom: 20px;
+    margin-right: 1150px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.edit_article_img_down_icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
 }
 
 .edit_article_icon{

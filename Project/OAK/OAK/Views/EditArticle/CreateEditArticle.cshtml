@@ -1,1 +1,38 @@
-﻿
+﻿@await Html.PartialAsync("_jsCreateEditArticlePartial")
+
+<form action="">
+    <!-- Раздел -->
+    <label class="edit_section_record">Ветвь:</label>
+    <select name="section" class="edit_section_parent">
+        <option value="1" class="edit_section_parent_section">Раздел</option>
+        <option value="2" class="edit_section_parent_section">Раздел1</option>
+        <option value="3" class="edit_section_parent_section">Раздел2</option>
+    </select>
+
+    <!-- Название -->
+    <label class="edit_section_record">Название:</label>
+    <input type="text" name="name" class="edit_profile_name edit_section_name">
+
+
+    <label class="edit_section_record">Содержание:</label>
+
+    <div>
+        <!-- Текст -->
+        <div class="edit_artcle_text">
+
+            <img title="Текст" class="edit_article_bottons edit_article_icon" src="css/icons/text.png">
+
+            <!-- Поле ввода -->
+            <textarea name="text0" class="edit_article_textarea"></textarea>
+
+            <div>
+                <img id="0" class="edit_article_bottons" src="css/icons/image.png" title="Добавить поле загрузки изображения" onclick="return addFieldImage(this)">
+                <img id="0" class="edit_article_bottons" src="css/icons/title.png" title="Добавить поле ввода подзаголовока" onclick="return addSubtitle(this)">
+            </div>
+
+        </div>
+    </div>
+
+    <button class="standart_buttom edit_profile_botton">Сохранить</button>
+    <button class="standart_buttom edit_profile_botton">Удалить статью</button>
+</form>
