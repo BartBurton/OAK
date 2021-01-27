@@ -28,22 +28,17 @@ namespace OAK.Controllers
             SectionEditedModel model = new SectionEditedModel();
             if (id != null)
             {
-                Section section = await _oak.Sections
-                    .Include(s => s.IdparentNavigation)
-                    .FirstOrDefaultAsync(s => s.Id == id);
+                Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
 
                 Autor autor = await _oak.Autors
                     .Include(a => a.Sections)
                     .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
 
-                if (!autor.Sections.Contains(section))
-                {
-                    return RedirectToAction("Profile", "Profile");
-                }
+                if (!autor.Sections.Contains(section)) { return RedirectToAction("Profile", "Profile"); }
 
                 model.Id = section.Id;
                 model.Name = section.Name;
-                model.Parent = section.IdparentNavigation?.Id;
+                model.Parent = section.Idparent;
             } 
 
             return View(model);
@@ -81,14 +76,9 @@ namespace OAK.Controllers
             }
             else
             {
-                Section section = await _oak.Sections
-                    .Include(s => s.IdparentNavigation)
-                    .FirstOrDefaultAsync(s => s.Id == id);
+                Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
 
-                if (!autor.Sections.Contains(section))
-                {
-                    return RedirectToAction("Profile", "Profile");
-                }
+                if (!autor.Sections.Contains(section)) { return RedirectToAction("Profile", "Profile"); }
 
                 section.Name = model.Name;
                 section.IdparentNavigation = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent);

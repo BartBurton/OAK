@@ -1,0 +1,64 @@
+﻿@model Article
+
+@await Html.PartialAsync("_jsCreateEditArticlePartial")
+
+<form asp-action="EditCreateArticle" asp-controller="EditArticle" method="post" enctype="multipart/form-data">
+
+    <label class="edit_section_record" asp-for="Idsection">Ветвь:</label>
+    <select class="edit_section_parent" asp-for="Idsection">
+
+        <option value="@null" class="edit_section_parent_section">...</option>
+        @{
+            List<Section> sections = ViewData["Sections"] as List<Section>;
+            foreach (var item in sections)
+            {
+                if (item.Id != Model.Idsection)
+                {
+                    <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id" class="edit_section_parent_section" selected>@item.Name</option>
+                }
+            }
+        }
+    </select>
+
+
+    <label class="edit_section_record" asp-for="Name">Название:</label>
+    <input class="edit_profile_name edit_section_name" asp-for="Name" 
+           data-val="true" data-val-required="The Idsection field is required." aria-describedby="Idsection-error"
+           aria-invalid="true">
+
+
+    <label class="edit_section_record">Содержание:</label>
+    <br>
+    <span class="field_validation" asp-validation-for="Date"></span>
+    <br>
+    <div id="fields">
+        <script>
+            @{ 
+                List<object> contents = new List<object>();
+                contents.AddRange(Model.ArtTexts);
+                contents.AddRange(Model.ArtSubtitles);
+                contents.AddRange(Model.ArtImages);
+                contents.OrderBy(e => {
+                    if (e is ArtText t) return t.Number;
+                    else if (e is ArtSubtitle s) return s.Number;
+                    else return ((ArtImage)e).Number;
+                });
+            }
+            makeContainerText(0);
+        </script>
+    </div>
+
+
+    <button class="standart_buttom edit_profile_botton">Сохранить</button>
+
+</form>
+
+<div class="out edit_profile_drop">
+    <a class="a_botton" asp-action="DropArticle" asp-controller="EditArticle">
+        Сбросить
+    </a>
+</div>

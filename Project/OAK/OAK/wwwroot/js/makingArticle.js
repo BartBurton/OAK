@@ -28,22 +28,26 @@ function buttomAddImage(number) {
 }
 
 
-
+//t - textarea
 function fieldText(number) {
     var field = document.createElement('textarea');
-    field.name = "t" + number;
+    field.id = "text" + number;
+    field.name = "text" + number;
     field.className = "edit_article_textarea";
     return field;
 }
 
+//s - input
 function fieldSubtitle(number) {
     var field = document.createElement('input');
     field.type = "text";
-    field.name = "s" + number;
+    field.id = "sub" + number;
+    field.name = "sub" + number;
     field.className = "edit_article_subtitle_field";
     return field;
 }
 
+//f - input; p - preview
 function fieldImage(number) {
 
     var container = document.createElement('div');
@@ -51,6 +55,7 @@ function fieldImage(number) {
 
     var preview = document.createElement('img');
     preview.className = "edit_article_img_prev";
+    preview.id = "preview" + number;
     preview.src = "";
     preview.onclick = function () { field.click(); }
 
@@ -58,7 +63,8 @@ function fieldImage(number) {
     field.type = "file";
     field.multiple = "image/*";
     field.accept = "image/*";
-    field.name = "f" + number;
+    field.id = "img" + number;
+    field.name = "img" + number;
     field.className = "edit_article_img_down";
     field.style = "opacity: 0;";
     field.addEventListener("change",
@@ -171,4 +177,16 @@ function addFieldImage(id) {
 
     makeContainerImage(1 + Number(id));
     remove(id);
+}
+
+
+
+function setField(id, value) {
+    var field = document.getElementById(id);
+    field.value = value;
+}
+
+function setImage(id, src) {
+    var image = document.getElementById(id);
+    image.src = src;
 }
