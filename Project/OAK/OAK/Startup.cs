@@ -38,7 +38,7 @@ namespace OAK
             });
 
             services.AddHttpContextAccessor();
-            services.AddTransient<Controllers.Services.ICurrentUser, Controllers.Services.CurrentUser>();
+            services.AddTransient<Services.ICurrentUserAvatar, Services.CurrentUserAvatar>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

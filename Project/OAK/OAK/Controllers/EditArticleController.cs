@@ -16,11 +16,13 @@ namespace OAK.Controllers
         {
             _oak = oak;
         }
-
+        
         public IActionResult CreateArticle()
         {
+            ViewData["Sections"] = _oak.Sections.ToList();
             return View();
         }
+
 
         public IActionResult EditArticle(long? id)
         {
@@ -30,10 +32,16 @@ namespace OAK.Controllers
         [HttpPost]
         public IActionResult EditCreateArticle(long? id)
         {
+            var x = HttpContext.Request.Form;
             return View();
         }
 
-        public IActionResult DropArticle(long? id)
+        public IActionResult DropCreateArticle()
+        {
+            return View();
+        }
+
+        public IActionResult DropEditArticle()
         {
             return View();
         }

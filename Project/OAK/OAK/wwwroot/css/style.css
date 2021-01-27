@@ -1200,9 +1200,9 @@ a.a_botton {
 }
 
 .edit_profile_drop {
-    float: left;
+    float: right;
     margin-top: 50px;
-    margin-left: 900px;
+    margin-right: 150px;
     font-size: 12pt;
 }
 
@@ -1214,4 +1214,10 @@ a.a_botton {
     font-size: 10pt;
     font-weight: bold;
     color: #FF0000;
+}
+
+.field_validation{
+    float:left;
+    margin-left:50px;
+    width:1200px;
 }

@@ -18,7 +18,6 @@ namespace OAK.Models
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public int Number { get; set; }
         public long? Idautor { get; set; }
         public long Idsection { get; set; }
         public DateTime Date { get; set; }

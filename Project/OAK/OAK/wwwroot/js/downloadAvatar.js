@@ -1,15 +1,13 @@
-﻿var prev = document.getElementById("profileAva");
-prev.onclick = function()
-{
-    inpAva.click();
+﻿var preview = document.getElementById("preview");
+preview.onclick = function () {
+    input.click();
 }
 
-var inpAva = document.getElementById("profileAvaInp");
-inpAva.addEventListener("change", loadImgFile);
-function loadImgFile(){
+var input = document.getElementById("input");
+input.addEventListener("change", function () {
     var reader = new FileReader();
-    reader.readAsDataURL(inpAva.files[0]);
-    reader.onload = function(e){
-        prev.src = e.target.result;
+    reader.readAsDataURL(input.files[0]);
+    reader.onload = function (e) {
+        preview.src = e.target.result;
     }
-}
+});

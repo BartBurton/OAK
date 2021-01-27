@@ -132,9 +132,7 @@ C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнт
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Article\Article.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Autors\Autors.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Autor\Autor.cshtml.g.cs
-C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\CreateEditArticle.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditProfile\EditProfile.cshtml.g.cs
-C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditSection\CreateEditSection.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Login\Code.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Login\ForgotPassword.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Login\NewPassword.cshtml.g.cs
@@ -502,3 +500,6 @@ C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнт
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Section\_SectionInsideArticlesPartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditProfile\_jsEditProfilePartilal.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsCreateEditArticlePartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\CreateArticle.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\EditArticle.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditSection\EditCreateSection.cshtml.g.cs

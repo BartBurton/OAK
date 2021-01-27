@@ -28,6 +28,13 @@ namespace OAK.Controllers
                 return RedirectToAction("SignIn", "Login");
             }
 
+            _oak.Entry(autor).Collection(a => a.FavAutorIdautorfavoriteNavigations).Load();
+            _oak.Entry(autor).Collection(a => a.FavAutorIdautororiginNavigations).Load();
+            _oak.Entry(autor).Collection(a => a.FavSections).Load();
+            _oak.Entry(autor).Collection(a => a.FavArticles).Load();
+            _oak.Entry(autor).Collection(a => a.Articles).Load();
+            _oak.Entry(autor).Collection(a => a.Sections).Load();
+
             return View(autor);
         }
     }

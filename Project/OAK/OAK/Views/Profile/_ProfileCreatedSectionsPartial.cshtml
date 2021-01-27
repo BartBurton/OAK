@@ -5,12 +5,12 @@
 
     <p class="profile_howmuch">Ветвей: @Model.Sections.Count</p>
 
-    <a class="a_botton" asp-action="CreateSection" asp-controller="EditSection">
+    <a class="a_botton" asp-action="EditCreateSection" asp-controller="EditSection">
         <img class="profile_make" src="~/icons/write.png">
     </a>
 
     @{
-        var sections = Model.Sections;
+        var sections = Model.Sections.Take(5);
         foreach (var item in sections)
         {
             <div class="setting_section">
@@ -19,7 +19,7 @@
                         @item.Name
                     </a>
                 </div>
-                <a class="a_botton" asp-action="EditSection" asp-controller="EditSection" asp-route-id="@Model.Id">
+                <a class="a_botton" asp-action="EditCreateSection" asp-controller="EditSection" asp-route-id="@item.Id">
                     <img class="half_article_favorite " src="~/icons/settings.png">
                 </a>
             </div>

@@ -6,20 +6,20 @@ using OAK.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
-namespace OAK.Controllers.Services
+namespace OAK.Services
 {
-    public class CurrentUser : ICurrentUser
+    public class CurrentUserAvatar : ICurrentUserAvatar
     {
         private readonly OAKContext _oak;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CurrentUser(OAKContext oak, IHttpContextAccessor httpContextAccessor)
+        public CurrentUserAvatar(OAKContext oak, IHttpContextAccessor httpContextAccessor)
         {
             _oak = oak;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<Autor> GetInformation()
+        public async Task<byte[]> GetAvatar()
         {
             Autor autor = null;
 
@@ -29,7 +29,7 @@ namespace OAK.Controllers.Services
                 a.Email == _httpContextAccessor.HttpContext.User.Identity.Name);
             }
 
-            return autor;
+            return autor?.Avatar;
         }
     }
 }

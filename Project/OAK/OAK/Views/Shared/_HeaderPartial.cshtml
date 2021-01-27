@@ -1,4 +1,6 @@
-﻿<header>
+﻿@model byte[]
+
+<header>
     <a asp-controller="Articles" asp-action="Articles">
         <img class="header_oak_icon" src="~/icons/oak.png">
         <div class="header_oak_name">ДУБ</div>
@@ -10,10 +12,10 @@
     </a>
 
     <a asp-controller="Profile" asp-action="Profile">
-        @if (ViewBag.CurrentUser != null)
+        @if (Model != null)
         {
             @Html.Raw("<img class='header_profile' " +
-            "src=\"data:image/png; base64," + Convert.ToBase64String(ViewBag.CurrentUser.Avatar) + "\" />")
+            "src=\"data:image/png; base64," + Convert.ToBase64String(Model) + "\" />")
         }
         else
         {
@@ -21,17 +23,7 @@
         }
     </a>
 
-    @if (ViewBag.CurrentUser != null)
-    {
-        <a asp-controller="Articles" asp-action="NewsArticleseFromFavorite"
-           asp-route-id="ViewBag.CurrentUser.Id">
-            <img class="header_favorite" src="~/icons/leaf.png">
-        </a>
-    }
-    else
-    {
-        <a asp-controller="Login" asp-action="SignIn">
-            <img class="header_favorite" src="~/icons/leaf.png">
-        </a>
-    }
+    <a asp-controller="Articles" asp-action="NewsArticleseFromFavorite">
+        <img class="header_favorite" src="~/icons/leaf.png">
+    </a>
 </header>

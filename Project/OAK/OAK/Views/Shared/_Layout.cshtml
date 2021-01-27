@@ -1,6 +1,6 @@
-﻿@inject ICurrentUser CurrentUser
+﻿@inject ICurrentUserAvatar CurrentUserAvatar
 @{ 
-   ViewBag.CurrentUser = CurrentUser.GetInformation().Result;
+    byte[] Avatar = CurrentUserAvatar.GetAvatar().Result;
 }
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <body>
     <div class="wraper">
 
-        @await Html.PartialAsync("_HeaderPartial")
+        @await Html.PartialAsync("_HeaderPartial", Avatar)
 
         <div class="content">
             @RenderBody()
