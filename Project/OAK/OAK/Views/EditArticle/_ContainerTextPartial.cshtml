@@ -1,0 +1,21 @@
+@model (string Type, short Number, byte[] Data)
+@{ 
+    string n = Model.Number.ToString();
+    string value = HttpUtility.JavaScriptStringEncode(Encoding.UTF8.GetString(Model.Data));
+}
+
+
+<div class="edit_artcle_text" id=@("c" + n)>
+
+    <img class="edit_article_drop" src="~/icons/plus.png"
+         title="Сброс поля" id=@("drop" + n)>
+
+    <img class="edit_article_bottons edit_article_icon" src="~/icons/text.png" title="Текст">
+
+    <textarea class="edit_article_textarea" id=@(Model.Type + n) name=@(Model.Type + n)></textarea>
+</div>
+
+
+@await Html.PartialAsync("_jsContainerTextPartialPartial")
+
+

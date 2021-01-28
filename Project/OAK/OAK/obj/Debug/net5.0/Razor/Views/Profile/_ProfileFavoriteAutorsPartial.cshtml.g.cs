@@ -17,48 +17,55 @@ using System;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Linq;
+using System.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Text;
+using System.Linq;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Threading.Tasks;
+using System.Text;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+using System.Threading.Tasks;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using System.Collections.Generic;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+#line 8 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using OAK.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+#line 9 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using OAK.Services;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8a5d58f7f2822c2680c1dccce0121d423f760921", @"/Views/Profile/_ProfileFavoriteAutorsPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c2a620fdcc813a7af4579a6cf130a6258b7d0049", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9f76cc2e4116cae2e1b3085a713b3710e1ae1225", @"/Views/_ViewImports.cshtml")]
     public class Views_Profile__ProfileFavoriteAutorsPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Autor>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("a_botton"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -91,7 +98,7 @@ using OAK.Services;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n<div class=\"liked liked_some_profile\">\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f7609215887", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f7609216101", async() => {
                 WriteLiteral("\r\n        <p class=\"liked_title\">Избранные авторы:</p>\r\n    ");
             }
             );
@@ -138,7 +145,7 @@ using OAK.Services;
 #line hidden
 #nullable disable
             WriteLiteral("            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f7609218935", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f7609219149", async() => {
                 WriteLiteral("\r\n                <div class=\"liked_autor\">\r\n                    ");
 #nullable restore
 #line 16 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\Profile\_ProfileFavoriteAutorsPartial.cshtml"
@@ -198,7 +205,7 @@ using OAK.Services;
 #line hidden
 #nullable disable
             WriteLiteral("\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f76092112646", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8a5d58f7f2822c2680c1dccce0121d423f76092112860", async() => {
                 WriteLiteral("\r\n        <p class=\"recomended_dots\">. . .</p>\r\n    ");
             }
             );

@@ -8,21 +8,9 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/downloadAvatar.min.js",
-    "inputFiles": [
-      "wwwroot/js/downloadAvatar.js"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/css/style.min.css",
     "inputFiles": [
       "wwwroot/css/style.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/js/makingArticle.min.js",
-    "inputFiles": [
-      "wwwroot/js/makingArticle.js"
     ]
   }
 ]

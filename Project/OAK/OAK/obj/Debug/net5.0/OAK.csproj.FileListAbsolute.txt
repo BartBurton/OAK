@@ -499,6 +499,12 @@ C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнт
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Section\_SectionInformationPartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Section\_SectionInsideArticlesPartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditProfile\_jsEditProfilePartilal.cshtml.g.cs
-C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsCreateEditArticlePartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditSection\EditCreateSection.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\EditCreateArticle.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_ContainerImgPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_ContainerSubPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_ContainerTextPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsContainerImgPartialPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsContainerSubPartialPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsContainerTextPartialPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsEditCreateArticlePartial.cshtml.g.cs

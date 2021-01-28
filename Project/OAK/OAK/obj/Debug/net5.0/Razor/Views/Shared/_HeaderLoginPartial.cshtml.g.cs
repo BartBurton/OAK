@@ -17,48 +17,55 @@ using System;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Linq;
+using System.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Text;
+using System.Linq;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
-using System.Threading.Tasks;
+using System.Text;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+using System.Threading.Tasks;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using System.Collections.Generic;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+#line 8 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using OAK.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
+#line 9 "C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\Views\_ViewImports.cshtml"
 using OAK.Services;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3aacfd343853fe61c1fefc589b0c23ca6bbd63f2", @"/Views/Shared/_HeaderLoginPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c2a620fdcc813a7af4579a6cf130a6258b7d0049", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9f76cc2e4116cae2e1b3085a713b3710e1ae1225", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__HeaderLoginPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("logo"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -88,7 +95,7 @@ using OAK.Services;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("<header class=\"logo\">\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "3aacfd343853fe61c1fefc589b0c23ca6bbd63f24970", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "3aacfd343853fe61c1fefc589b0c23ca6bbd63f25184", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

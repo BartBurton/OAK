@@ -59,7 +59,7 @@ namespace OAK.Controllers
             model.ArtSubtitles = content.sub;
             model.ArtImages = content.img;
 
-            if(!IsValid(content))
+            if(IsValid(content))
             {
                 ViewData["Sections"] = await _oak.Sections.ToListAsync();
                 ModelState.AddModelError("Date", "Хотя бы одно поле контента должно быть заполнено!");
@@ -80,7 +80,7 @@ namespace OAK.Controllers
 
             foreach (var item in request)
             {
-                if(item.Key[0..4] == "text")
+                if(item.Key[0..4] == "text" && item.Value != "")
                 {
                     valuesText.Add(new ArtText() 
                     { 
@@ -89,7 +89,7 @@ namespace OAK.Controllers
                         Text = Encoding.UTF8.GetBytes(item.Value)
                     });
                 }
-                else if(item.Key[0..3] == "sub")
+                else if(item.Key[0..3] == "sub" && item.Value != "")
                 {
                     valuesSub.Add(new ArtSubtitle()
                     {
@@ -119,10 +119,9 @@ namespace OAK.Controllers
         private bool IsValid(
             (ICollection<ArtText> text, ICollection<ArtSubtitle> sub, ICollection<ArtImage> img) content)
         {
-            foreach (var item in content.text) { if (item.Text.Length != 0) return true; }
-            foreach (var item in content.sub) { if (item.Subtitle.Length != 0) return true; }
-            foreach (var item in content.img) { if (item.Image.Length != 0) return true; }
-
+            if (content.text.Count != 0) { return true; }
+            if (content.sub.Count != 0) { return true; }
+            if (content.img.Count != 0) { return true; }
             return false;
         }
 

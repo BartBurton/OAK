@@ -1,0 +1,19 @@
+﻿@model (string Type, short Number, byte[] Data)
+@{
+    string n = Model.Number.ToString();
+}
+
+
+<div class="edit_artcle_subtitle" id=@("c" + n)>
+
+    <img class="edit_article_drop" src="~/icons/plus.png"
+         title="Сброс поля" id=@("drop" + n)>
+
+    <img class="edit_article_bottons edit_article_icon" src="~/icons/title.png" title="Подзаголовок">
+
+    <input class="edit_article_subtitle_field" type="text" id=@(Model.Type + n) name=@(Model.Type + n)
+           value=@Encoding.UTF8.GetString(Model.Data)>
+</div>
+
+
+@await Html.PartialAsync("_jsContainerSubPartialPartial")

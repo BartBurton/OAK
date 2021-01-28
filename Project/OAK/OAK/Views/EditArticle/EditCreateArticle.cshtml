@@ -1,8 +1,8 @@
 ﻿@model Article
 
-@await Html.PartialAsync("_jsCreateEditArticlePartial")
+@await Html.PartialAsync("_jsEditCreateArticlePartial")
 
-<form asp-action="EditCreateArticle" asp-controller="EditArticle" method="post" enctype="multipart/form-data">
+<form asp-action="EditCreateArticle" asp-controller="EditArticle" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
 
     <label class="edit_section_record" asp-for="Idsection">Ветвь:</label>
     <select class="edit_section_parent" asp-for="Idsection">
@@ -36,20 +36,51 @@
     <span class="field_validation" asp-validation-for="Date"></span>
     <br>
     <div id="fields">
+
         <script>
-            @{ 
-                List<object> contents = new List<object>();
-                contents.AddRange(Model.ArtTexts);
-                contents.AddRange(Model.ArtSubtitles);
-                contents.AddRange(Model.ArtImages);
-                contents.OrderBy(e => {
-                    if (e is ArtText t) return t.Number;
-                    else if (e is ArtSubtitle s) return s.Number;
-                    else return ((ArtImage)e).Number;
-                });
-            }
-            makeContainerText(0);
+            var b = makeButtoms(-1);
+            document.getElementById("fields").appendChild(b);
         </script>
+
+
+        @{
+            List<(string Type, short Number, byte[] Data)> data =
+                new List<(string type, short Number, byte[] data)>();
+            foreach (var item in Model.ArtTexts)
+            {
+                data.Add(("text", item.Number, item.Text));
+            }
+            foreach (var item in Model.ArtSubtitles)
+            {
+                data.Add(("sub", item.Number, item.Subtitle));
+            }
+            foreach (var item in Model.ArtImages)
+            {
+                data.Add(("img", item.Number, item.Image));
+            }
+
+            (string Type, short Number, byte[] Data)[] fields = data.OrderBy(d => d.Number).ToArray();
+            data.Clear();
+
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (fields[i].Type == "text")
+                {
+                    @await Html.PartialAsync("_ContainerTextPartial", (fields[i].Type, (short)i, fields[i].Data))
+                }
+                else if (fields[i].Type == "sub")
+                {
+                    @await Html.PartialAsync("_ContainerSubPartial", (fields[i].Type, (short)i, fields[i].Data))
+                }
+                else if (fields[i].Type == "img")
+                {
+                    @await Html.PartialAsync("_ContainerImgPartial", (fields[i].Type, (short)i, fields[i].Data))
+                }
+                <script>
+                    remove(@i-1);
+                </script>
+            }
+        }
     </div>
 
 
@@ -58,7 +89,7 @@
 </form>
 
 <div class="out edit_profile_drop">
-    <a class="a_botton" asp-action="DropArticle" asp-controller="EditArticle">
+    <a class="a_botton" asp-action="DropArticle" asp-controller="EditArticle" asp-route-id="@Model.Id">
         Сбросить
     </a>
 </div>

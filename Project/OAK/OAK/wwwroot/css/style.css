@@ -1008,7 +1008,7 @@ a.a_botton {
 .edit_section_record {
   float: left;
   margin-left: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   margin-right: 500px;
   border-bottom: 1px solid #747a8d;
   padding-bottom: 5px;
@@ -1097,6 +1097,7 @@ a.a_botton {
   float: left;
   max-width: 1200px;
   min-width: 1200px;
+  min-height: 500px;
   height: auto;
   resize: vertical;
   border: 1px solid #747a8d;
@@ -1106,14 +1107,20 @@ a.a_botton {
   font-size: 20pt;
   outline: none;
 }
-.edit_article_bottons {
-  float: right;
-  margin-top: 10px;
-  margin-left: 20px;
-  width: auto;
-  max-width: 35px;
-  height: 35px;
-  cursor: pointer;
+
+.edit_article_buttoms_cont {
+    float: left;
+    margin-left: 50px;
+    margin-right: 1100px;
+}
+.edit_article_buttoms {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: auto;
+    max-width: 35px;
+    height: 35px;
+    cursor: pointer;
 }
 
 
@@ -1169,10 +1176,12 @@ a.a_botton {
     cursor: pointer;
 }
 
-.edit_article_drop_img {
+.edit_article_drop {
     float: left;
-    margin-bottom: 20px;
-    margin-right: 1150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     width: 35px;
     height: 35px;
     cursor: pointer;
@@ -1188,10 +1197,14 @@ a.a_botton {
     cursor: pointer;
 }
 
-.edit_article_icon{
-  margin-right: 20px;
-  margin-bottom: 10px;
-  cursor: auto;
+.edit_article_icon {
+    float: right;
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .edit_profile_form{
