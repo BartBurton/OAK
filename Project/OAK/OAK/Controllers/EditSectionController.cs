@@ -30,15 +30,12 @@ namespace OAK.Controllers
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
 
-                Autor autor = await _oak.Autors
-                    .Include(a => a.Sections)
+                Autor autor = await _oak.Autors.Include(a => a.Sections)
                     .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
 
-                if (!autor.Sections.Contains(section)) { return RedirectToAction("Profile", "Profile"); }
+                if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
 
-                model.Id = section.Id;
-                model.Name = section.Name;
-                model.Parent = section.Idparent;
+                model.FromSection(section);
             } 
 
             return View(model);
@@ -49,39 +46,36 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> EditCreateSection(long? id, SectionEditedModel model)
         {
-            Section sameSection = await _oak.Sections
-                .FirstOrDefaultAsync(s => s.Name == model.Name && s.Idparent == model.Parent);
-            if (sameSection != null)
+            ViewData["Sections"] = await _oak.Sections.ToListAsync();
+            if (!model.IsUnique(await _oak.Sections.ToListAsync()))
             {
-                ViewData["Sections"] = await _oak.Sections.ToListAsync();
                 ModelState.AddModelError("Parent", "");
                 ModelState.AddModelError("Name", "Данная ветвь уже существует! Измените предка или название!");
                 return View(model);
             }
+            if (!model.IsCorrect(await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent)))
+            {
+                ModelState.AddModelError("Parent", "");
+                ModelState.AddModelError("Name", "Родительская и дочерняя ветви не могут совпадать!");
+                return View(model);
+            }
 
-
-            Autor autor = await _oak.Autors
-                    .Include(a => a.Sections)
+            Autor autor = await _oak.Autors.Include(a => a.Sections)
                     .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
             if (id == null)
             {
-                Section section = new Section()
-                {
-                    Name = model.Name,
-                    IdparentNavigation = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent),
-                    IdautorNavigation = autor
-                };
+                Section section = new Section();
+                model.ToSection(ref section, await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent), autor);
+
                 await _oak.Sections.AddAsync(section);
                 _oak.SaveChanges();
             }
             else
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
+                if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
+                model.ToSection(ref section, await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent), autor);
 
-                if (!autor.Sections.Contains(section)) { return RedirectToAction("Profile", "Profile"); }
-
-                section.Name = model.Name;
-                section.IdparentNavigation = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent);
                 _oak.SaveChanges();
             }
 
@@ -95,15 +89,13 @@ namespace OAK.Controllers
         {
             if(id == null) { return RedirectToAction("Profile", "Profile"); }
 
-            Autor autor = await _oak.Autors
-                .Include(a => a.Sections)
+            Autor autor = await _oak.Autors.Include(a => a.Sections)
                 .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
 
-            Section section = await _oak.Sections
-                .Include(s => s.InverseIdparentNavigation)
+            Section section = await _oak.Sections.Include(s => s.InverseIdparentNavigation)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
-            if (!autor.Sections.Contains(section)) { return RedirectToAction("Profile", "Profile"); }
+            if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
 
             Section[] sections;
             List<Section> children = section.InverseIdparentNavigation.ToList();

@@ -12,5 +12,17 @@
     "inputFiles": [
       "wwwroot/css/style.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jsEditProfile.min.js",
+    "inputFiles": [
+      "wwwroot/js/jsEditProfile.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jsEditCreateArticle.min.js",
+    "inputFiles": [
+      "wwwroot/js/jsEditCreateArticle.js"
+    ]
   }
 ]

@@ -9,16 +9,19 @@
         <option value="@null" class="edit_section_parent_section">...</option>
         @{
             List<Section> sections = ViewData["Sections"] as List<Section>;
+
+            sections.RemoveAll(s => s.Id == Model.Id);
+
+            Section selected = sections.Find(s => s.Id == Model.Parent);
+            if(selected != null)
+            {
+                @:<option value="@selected.Id" class="edit_section_parent_section" selected>@selected.Name</option>
+                sections.Remove(selected);
+            }
+
             foreach (var item in sections)
             {
-                if (item.Id != Model.Parent)
-                {
-                    <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
-                }
-                else
-                {
-                    <option value="@item.Id" class="edit_section_parent_section" selected>@item.Name</option>
-                }
+                <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
             }
         }
     </select>

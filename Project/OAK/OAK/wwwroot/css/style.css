@@ -1232,5 +1232,6 @@ a.a_botton {
 .field_validation{
     float:left;
     margin-left:50px;
+    margin-bottom:50px;
     width:1200px;
 }

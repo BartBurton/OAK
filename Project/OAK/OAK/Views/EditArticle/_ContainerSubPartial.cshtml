@@ -1,6 +1,7 @@
 ﻿@model (string Type, short Number, byte[] Data)
 @{
     string n = Model.Number.ToString();
+    string value = HttpUtility.JavaScriptStringEncode(Encoding.UTF8.GetString(Model.Data));
 }
 
 
@@ -12,8 +13,10 @@
     <img class="edit_article_bottons edit_article_icon" src="~/icons/title.png" title="Подзаголовок">
 
     <input class="edit_article_subtitle_field" type="text" id=@(Model.Type + n) name=@(Model.Type + n)
-           value=@Encoding.UTF8.GetString(Model.Data)>
+           value="@Html.Raw(value)">
 </div>
 
 
-@await Html.PartialAsync("_jsContainerSubPartialPartial")
+<script>
+    toSetDrop("@("drop" + n)", "@("c" + n)");
+</script>

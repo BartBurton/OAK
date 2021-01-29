@@ -22,9 +22,14 @@
         <input class="edit_article_img_down" style="opacity: 0;" type="file" multiple="" accept="image/*"
                id=@(Model.Type + n) name=@(Model.Type + n)>
     </div>
+
+    <input hidden type="text" id=@(Model.Type + n) name=@(Model.Type + n)
+           value="@Html.Raw(value)">
 </div>
 
-
-@await Html.PartialAsync("_jsContainerImgPartialPartial")
+<script>
+    toSetDrop("@("drop" + n)", "@("c" + n)");
+    toSetInput("@(Model.Type + n)", "@("preview" + n)", "@("download" + n)");
+</script>
 
 

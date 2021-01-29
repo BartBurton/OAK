@@ -1,1 +1,0 @@
-﻿toSetDrop("@("drop" + n)", @("c" + n));

@@ -1,85 +1,71 @@
-﻿@model Article
+﻿@model OAK.Models.Edited.ArticleEditedModel
 
 @await Html.PartialAsync("_jsEditCreateArticlePartial")
 
-<form asp-action="EditCreateArticle" asp-controller="EditArticle" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+<form asp-action="EditCreateArticle" asp-controller="EditArticle"
+      asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
 
-    <label class="edit_section_record" asp-for="Idsection">Ветвь:</label>
-    <select class="edit_section_parent" asp-for="Idsection">
+    <label class="edit_section_record" asp-for="Section">Ветвь:</label>
+    <select class="edit_section_parent" asp-for="Section">
 
         <option value="@null" class="edit_section_parent_section">...</option>
         @{
             List<Section> sections = ViewData["Sections"] as List<Section>;
+
+            Section selected = sections.Find(s => s.Id == Model.Section);
+            if (selected != null)
+            {
+                @:<option value="@selected.Id" class="edit_section_parent_section" selected>@selected.Name</option>
+                sections.Remove(selected);
+            }
+
             foreach (var item in sections)
             {
-                if (item.Id != Model.Idsection)
-                {
-                    <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
-                }
-                else
-                {
-                    <option value="@item.Id" class="edit_section_parent_section" selected>@item.Name</option>
-                }
+                <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
             }
         }
     </select>
 
 
     <label class="edit_section_record" asp-for="Name">Название:</label>
-    <input class="edit_profile_name edit_section_name" asp-for="Name" 
+    <input class="edit_profile_name edit_section_name" asp-for="Name"
            data-val="true" data-val-required="The Idsection field is required." aria-describedby="Idsection-error"
            aria-invalid="true">
 
 
     <label class="edit_section_record">Содержание:</label>
     <br>
-    <span class="field_validation" asp-validation-for="Date"></span>
+    <span class="field_validation" asp-validation-for="Content"></span>
     <br>
     <div id="fields">
-
-        <script>
-            var b = makeButtoms(-1);
-            document.getElementById("fields").appendChild(b);
-        </script>
-
-
         @{
-            List<(string Type, short Number, byte[] Data)> data =
-                new List<(string type, short Number, byte[] data)>();
-            foreach (var item in Model.ArtTexts)
+            List<(string Type, short Number, byte[] Data)> fields = Model.Content;
+
+            foreach (var item in fields)
             {
-                data.Add(("text", item.Number, item.Text));
-            }
-            foreach (var item in Model.ArtSubtitles)
-            {
-                data.Add(("sub", item.Number, item.Subtitle));
-            }
-            foreach (var item in Model.ArtImages)
-            {
-                data.Add(("img", item.Number, item.Image));
+                if (item.Type == "text")
+                {
+                    @await Html.PartialAsync("_ContainerTextPartial",
+                        (item.Type, item.Number, item.Data))
+                }
+
+                else if (item.Type == "sub")
+                {
+                    @await Html.PartialAsync("_ContainerSubPartial",
+                        (item.Type, item.Number, item.Data))
+                }
+
+                else if (item.Type == "img")
+                {
+                    @await Html.PartialAsync("_ContainerImgPartial",
+                        (item.Type, item.Number, item.Data))
+                }
             }
 
-            (string Type, short Number, byte[] Data)[] fields = data.OrderBy(d => d.Number).ToArray();
-            data.Clear();
-
-            for (int i = 0; i < fields.Length; i++)
-            {
-                if (fields[i].Type == "text")
-                {
-                    @await Html.PartialAsync("_ContainerTextPartial", (fields[i].Type, (short)i, fields[i].Data))
-                }
-                else if (fields[i].Type == "sub")
-                {
-                    @await Html.PartialAsync("_ContainerSubPartial", (fields[i].Type, (short)i, fields[i].Data))
-                }
-                else if (fields[i].Type == "img")
-                {
-                    @await Html.PartialAsync("_ContainerImgPartial", (fields[i].Type, (short)i, fields[i].Data))
-                }
-                <script>
-                    remove(@i-1);
-                </script>
-            }
+            <script>
+                var b = makeButtoms(@((fields.Count == 0) ? 0 : fields.Max(e => e.Number)));
+                document.getElementById("fields").appendChild(b);
+            </script>
         }
     </div>
 
