@@ -30,8 +30,9 @@ namespace OAK.Controllers
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
 
-                Autor autor = await _oak.Autors.Include(a => a.Sections)
-                    .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+                Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                    .Include(a => a.Sections)
+                    .FirstOrDefaultAsync();
 
                 if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
 
@@ -60,8 +61,9 @@ namespace OAK.Controllers
                 return View(model);
             }
 
-            Autor autor = await _oak.Autors.Include(a => a.Sections)
-                    .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                    .Include(a => a.Sections)
+                    .FirstOrDefaultAsync();
             if (id == null)
             {
                 Section section = new Section();
@@ -89,11 +91,13 @@ namespace OAK.Controllers
         {
             if(id == null) { return RedirectToAction("Profile", "Profile"); }
 
-            Autor autor = await _oak.Autors.Include(a => a.Sections)
-                .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                .Include(a => a.Sections)
+                .FirstOrDefaultAsync();
 
-            Section section = await _oak.Sections.Include(s => s.InverseIdparentNavigation)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            Section section = await _oak.Sections.Where(s => s.Id == id)
+                .Include(s => s.InverseIdparentNavigation)
+                .FirstOrDefaultAsync();
 
             if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
 
@@ -106,9 +110,9 @@ namespace OAK.Controllers
 
                 for (int i = 0; i < sections.Length; i++)
                 {
-                    children.AddRange(_oak.Sections
+                    children.AddRange(_oak.Sections.Where(s => s.Id == sections[i].Id)
                         .Include(s => s.InverseIdparentNavigation)
-                        .FirstOrDefault(s => s.Id == sections[i].Id)
+                        .FirstOrDefault()
                         .InverseIdparentNavigation);
                 }
 

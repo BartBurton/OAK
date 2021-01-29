@@ -28,11 +28,28 @@ namespace OAK.Controllers
                 return RedirectToAction("SignIn", "Login");
             }
 
+            autor.Articles = _oak.Articles.Where(a => a.Idautor == autor.Id)
+                .OrderBy(a => a.Date)
+                .Take(3)
+                .Include(a => a.IdsectionNavigation)
+                .Include(a => a.ArtTexts.Take(1))
+                .Include(a => a.ArtImages.Take(1))
+                .ToList();
+
+            autor.FavArticles = _oak.FavArticles.Where(f => f.Idautor == autor.Id)
+                .Take(3)
+                .Include(f => f.IdarticleNavigation)
+                    .ThenInclude(a => a.IdsectionNavigation)
+                .Include(f => f.IdarticleNavigation)
+                    .ThenInclude(a => a.ArtTexts.Take(1))
+                .Include(f => f.IdarticleNavigation)
+                    .ThenInclude(a => a.ArtImages.Take(1))
+                .ToList();
+
             _oak.Entry(autor).Collection(a => a.FavAutorIdautorfavoriteNavigations).Load();
             _oak.Entry(autor).Collection(a => a.FavAutorIdautororiginNavigations).Load();
             _oak.Entry(autor).Collection(a => a.FavSections).Load();
-            _oak.Entry(autor).Collection(a => a.FavArticles).Load();
-            _oak.Entry(autor).Collection(a => a.Articles).Load();
+            
             _oak.Entry(autor).Collection(a => a.Sections).Load();
 
             return View(autor);

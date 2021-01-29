@@ -31,14 +31,15 @@ namespace OAK.Controllers
 
             if (id != null)
             {
-                Article article = await _oak.Articles
+                Article article = await _oak.Articles.Where(a => a.Id == id)
                     .Include(a => a.ArtTexts)
                     .Include(a => a.ArtSubtitles)
                     .Include(a => a.ArtImages)
-                    .FirstOrDefaultAsync(a => a.Id == id);
+                    .FirstOrDefaultAsync();
 
-                Autor autor = await _oak.Autors.Include(a => a.Articles)
-                    .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+                Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                    .Include(a => a.Articles)
+                    .FirstOrDefaultAsync();
 
                 if (!ArticleEditedModel.HaveArticle(autor, article)) { return RedirectToAction("Profile", "Profile"); }
 
@@ -62,8 +63,9 @@ namespace OAK.Controllers
                 return View(model);
             }
 
-            Autor autor = await _oak.Autors.Include(a => a.Articles)
-                .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                .Include(a => a.Articles)
+                .FirstOrDefaultAsync();
 
             Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Section);
 
@@ -92,8 +94,9 @@ namespace OAK.Controllers
         {
             if (id == null) { return RedirectToAction("Profile", "Profile"); }
 
-            Autor autor = await _oak.Autors.Include(a => a.Articles)
-                .FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                .Include(a => a.Articles)
+                .FirstOrDefaultAsync();
 
             Article deleted = await _oak.Articles.FirstOrDefaultAsync(a => a.Id == id);
 

@@ -3,7 +3,7 @@
 <div>
     @foreach (var item in Model)
      {
-        @Html.PartialAsync("_HalfArticlePartial", item)
+        @await Html.PartialAsync("_HalfArticlePartial", item)
      }
 
     <div class="botton">

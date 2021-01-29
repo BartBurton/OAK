@@ -1,5 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Article>
+
+<div>
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_HalfArticlePartial", item)
+    }
+
+    <div class="botton">
+        <a class="a_botton" asp-action="CreatedArticles" asp-controller="Articles" asp-route-start="@(--ViewBag.Start)">
+            Назад
+        </a>
+    </div>
+
+    <div class="botton">
+        <a class="a_botton" asp-action="CreatedArticles" asp-controller="Articles" asp-route-start="@(ViewBag.Start + 2)">
+            Ещё
+        </a>
+    </div>
+</div>

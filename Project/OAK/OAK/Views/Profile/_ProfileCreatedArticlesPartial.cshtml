@@ -5,7 +5,7 @@
 
     <p class="profile_howmuch">Статей: @Model.Articles.Count</p>
 
-    <a class="a_botton"  asp-action="EditCreateArticle" asp-controller="EditArticle">
+    <a class="a_botton" asp-action="EditCreateArticle" asp-controller="EditArticle">
         <img class="profile_make" src="~/icons/write.png">
     </a>
     <br><br><br><br>
@@ -14,7 +14,7 @@
         var articles = Model.Articles.Take(3);
         foreach (var item in articles)
         {
-            @*@await Html.PartialAsync("Views/Articles/_HalfArticlePartial", item)*@
+            @await Html.PartialAsync("~/Views/Articles/_HalfArticlePartial.cshtml", item)
         }
     }
 
