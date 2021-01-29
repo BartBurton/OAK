@@ -505,3 +505,7 @@ C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнт
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_ContainerSubPartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_ContainerTextPartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditArticle\_jsEditCreateArticlePartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\ArticlesSection.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\CreatedArticles.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\FavoriteArticles.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\Тематические блоги с элемнтами новостей\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\NewsArticleseFromFavorite.cshtml.g.cs

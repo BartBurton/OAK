@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using OAK.Models;
+using OAK.Models.Edited;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OAK.Controllers
 {
@@ -11,13 +15,6 @@ namespace OAK.Controllers
         private readonly OAKContext _oak;
 
         private const int _countOfEl = 10;
-        private int _start = 0;
-        private int Start
-        {
-            get => _start;
-            set => _start = (value >= 0) ? value : 0;
-        }
-
 
         public ArticlesController(OAKContext oak)
         {
@@ -27,39 +24,57 @@ namespace OAK.Controllers
 
         public IActionResult Articles(int start = 0)
         {
-            Start = start;
-
-            var articles = _oak.Articles.Skip(Start * _countOfEl).Take(_countOfEl);
+            start = (start >= 0) ? start : 0;
 
             ViewBag.Title = "Статьи ДУБа";
-            ViewData["Start"] = ++Start;
+            ViewBag.Start = start;
+
+            var articles = _oak.Articles
+                .OrderBy(a => a.Date)
+                .Skip(start * _countOfEl)
+                .Take(_countOfEl)
+                .Include(a => a.IdautorNavigation)
+                .Include(a => a.IdsectionNavigation)
+                .Include(a => a.ArtTexts.Take(1))
+                .Include(a => a.ArtImages.Take(1))
+                .ToList();
 
             return View(articles);
         }
 
         public IActionResult CreatedArticles(long? id, int start = 0)
         {
-            Start = start;
+            start = (start >= 0) ? start : 0;
+            ViewBag.Start = start;
+
+
             return View();
         }
 
         public IActionResult FavoriteArticles(long? id, int start = 0)
         {
-            Start = start;
+            start = (start >= 0) ? start : 0;
+            ViewBag.Start = start;
+
             return View();
         }
 
         public IActionResult ArticlesSection(long? id, int start = 0)
         {
-            Start = start;
+            start = (start >= 0) ? start : 0;
+            ViewBag.Start = start;
+
             return View();
         }
 
 
-        public IActionResult NewsArticleseFromFavorite(long? id, int start = 0)
+        public IActionResult NewsArticleseFromFavorite(int start = 0)
         {
-            Start = start;
-            return View("Articles");
+            start = (start >= 0) ? start : 0;
+            ViewBag.Start = start;
+
+
+            return View();
         }
     }
 }

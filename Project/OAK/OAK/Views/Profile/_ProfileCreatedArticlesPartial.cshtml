@@ -12,9 +12,9 @@
 
     @{
         var articles = Model.Articles.Take(3);
-        foreach (var a in articles)
+        foreach (var item in articles)
         {
-            @*@await Html.PartialAsync("/Views/Articles/_ProfileInformationPartial", a)*@
+            @*@await Html.PartialAsync("Views/Articles/_HalfArticlePartial", item)*@
         }
     }
 

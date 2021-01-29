@@ -223,6 +223,7 @@ a.a_botton {
 .half_article_title {
   color: black;
   float: left;
+  margin-top: 20px;
   margin-left: 20px;
 }
 .half_article_favorite {
