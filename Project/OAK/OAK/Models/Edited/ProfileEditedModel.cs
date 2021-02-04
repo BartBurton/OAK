@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,5 +23,26 @@ namespace OAK.Models.Edited
 
         [Required(ErrorMessage = "Установите фото профиля!")]
         public byte[] AvatarBinary { get; set; }
+
+
+        public void FromAutor(Autor autor)
+        {
+            Name = autor.Name;
+            Status = autor.Status;
+            AvatarBinary = autor.Avatar;
+        }
+
+        public void ToAutor(ref Autor autor)
+        {
+            autor.Name = Name;
+            autor.Status = Status;
+            if(Avatar != null)
+            {
+                using (BinaryReader br = new BinaryReader(Avatar.OpenReadStream()))
+                {
+                    autor.Avatar = br.ReadBytes((int)Avatar.Length);
+                }   
+            }
+        }
     }
 }

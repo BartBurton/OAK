@@ -37,5 +37,25 @@ namespace OAK.Models.Edited
 
         public bool IsCorrect(Section parent)
             => (Parent != Id && Name != parent?.Name) || Parent == null;
+
+
+        public void RemoveChildren(List<Section> sections)
+        {
+            sections.RemoveAll(s => s.Id == Id);
+
+            Section[] gCurr;
+            List<Section> gNext = sections.Where(s => s.Idparent == Id).ToList();
+
+            while (gNext.Count != 0)
+            {
+                gCurr = gNext.ToArray();
+                gNext.Clear();
+                for (int i = 0; i < gCurr.Length; i++)
+                {
+                    sections.Remove(gCurr[i]);
+                    gNext.AddRange(sections.Where(s => s.Idparent == gCurr[i].Id));
+                }
+            }
+        }
     }
 }

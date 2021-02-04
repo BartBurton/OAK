@@ -1,9 +1,4 @@
-﻿@inject ICurrentUserAvatar CurrentUserAvatar
-@{ 
-    byte[] Avatar = CurrentUserAvatar.GetAvatar().Result;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     @await Html.PartialAsync("_MetatagsPartial")
@@ -13,7 +8,7 @@
 <body>
     <div class="wraper">
 
-        @await Html.PartialAsync("_HeaderPartial", Avatar)
+        @await Html.PartialAsync("_HeaderPartial")
 
         <div class="content">
             @RenderBody()

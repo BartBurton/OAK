@@ -1,29 +1,43 @@
-﻿@model byte[]
+﻿@inject ICurrentUser User
+@{
+    Autor CurrentUser = User.GetCurrentUser().Result;
+}
 
 <header>
-    <a asp-controller="Articles" asp-action="Articles">
+    <a asp-controller="Articles" asp-action="News" title="Новое">
         <img class="header_oak_icon" src="~/icons/oak.png">
         <div class="header_oak_name">ДУБ</div>
     </a>
 
-    <a asp-controller="Sections" asp-action="Sections">
+    <a asp-controller="Sections" asp-action="All" title="Все ветви">
         <div class="header_branch_name">Ветви</div>
         <img class="header_branch_icon" src="~/icons/branch.png">
     </a>
 
-    <a asp-controller="Profile" asp-action="Profile">
-        @if (Model != null)
-        {
-            @Html.Raw("<img class='header_profile' " +
-            "src=\"data:image/png; base64," + Convert.ToBase64String(Model) + "\" />")
-        }
-        else
-        {
-            <img class="header_profile" src="~/icons/acorn.png">
-        }
-    </a>
+    @if (CurrentUser != null)
+    {
+        <a asp-controller="Autors" asp-action="Autor" 
+           asp-route-id="@CurrentUser.Id" title="Профиль">
+            <div class="header_profile_center">
+                @Html.Raw("<img class='header_profile' " +
+                "src=\"data:image/png; base64," + Convert.ToBase64String(CurrentUser.Avatar) + "\" />")
+            </div>
+        </a>
 
-    <a asp-controller="Articles" asp-action="NewsArticleseFromFavorite">
-        <img class="header_favorite" src="~/icons/leaf.png">
-    </a>
+        <a asp-controller="Articles" asp-action="NewsFavorite" 
+           asp-route-id="@CurrentUser.Id" title="Новое для вас">
+            <img class="header_favorite" src="~/icons/leaf.png">
+        </a>
+    }
+    else
+    {
+        <a asp-controller="Login" asp-action="SignIn" title="Профиль">
+            <div class="header_profile_center">
+                <img class="header_profile" src="~/icons/user.png">
+            </div>
+        </a>
+        <a asp-controller="Login" asp-action="SignIn" title="Новое для вас">
+            <img class="header_favorite" src="~/icons/leaf.png">
+        </a>
+    }
 </header>

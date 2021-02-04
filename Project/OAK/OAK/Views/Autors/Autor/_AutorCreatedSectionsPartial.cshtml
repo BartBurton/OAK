@@ -1,0 +1,35 @@
+﻿@model Autor
+@inject ICurrentUser User
+@{
+    Autor CurrentUser = User.GetCurrentUser().Result;
+}
+
+<div class="liced_articles">
+
+    <a class="a_botton" asp-controller="Sections" asp-action="CreatedSections" asp-route-id="@Model.Id">
+        <p class="liced_articles_title">Созданные ветви</p>
+    </a>
+
+    @if (Model.Id == CurrentUser?.Id)
+    {
+        <p class="profile_howmuch">Ветвей: @Model.Sections.Count</p>
+        <a class="a_botton" asp-controller="EditSection" asp-action="EditCreate">
+            <img class="profile_make" src="~/icons/write.png">
+        </a>
+        <br><br><br><br>
+    }
+    <div class="liced_sections">
+        @{
+            var sections = Model.Sections.Take(5);
+            foreach (var item in sections)
+            {
+                @await Html.PartialAsync("~/Views/Sections/_HalfSectionPartial.cshtml", item)
+            }
+        }
+    </div>
+
+    <a class="a_botton" asp-controller="Sections" asp-action="CreatedSections" asp-route-id="@Model.Id">
+        <p class="liced_articles_dots">. . .</p>
+    </a>
+
+</div>

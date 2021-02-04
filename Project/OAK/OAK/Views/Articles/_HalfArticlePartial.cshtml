@@ -1,17 +1,33 @@
 ﻿@model Article
+@inject ICurrentUser User
+@{
+    Autor CurrentUser = User.GetCurrentUser().Result;
+}
 
 <div class="half_article">
 
     <div class="half_article_title_inf">
-        <a class="a_botton" asp-action="Article" asp-controller="Article" asp-route-id="@Model.Id">
-            <h3 class="half_article_title">@Model.Name</h3>
+        <a class="a_botton" asp-controller="Articles" asp-action="Article" asp-route-id="@Model.Id">
+            <h4 class="half_article_title">@Model.Name</h4>
         </a>
-        <img class="half_article_favorite" src="~/icons/yes leaf.png">
+
+        @if (CurrentUser != null)
+        {
+            @if (Model.Idautor == CurrentUser.Id)
+            {
+                <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.Id">
+                    <img class="half_article_favorite" src="~/icons/settings.png">
+                </a>
+            }
+        }
     </div>
 
     <div class="half_article_content_inf">
-        @Html.Raw("<img class='half_article_prewie' " +
-        "src=\"data:image/png; base64," + Convert.ToBase64String(Model.ArtImages.First().Image) + "\" />")
+        <div class="center_preview">
+            @Html.Raw("<img class='half_article_prewie' " +
+            "src=\"data:image/png; base64," + Convert.ToBase64String(Model.ArtImages.First().Image) + "\" />")
+        </div>
+
         @{
             string clipp = Encoding.UTF8.GetString(Model.ArtTexts.First().Text);
 
@@ -21,13 +37,14 @@
             }
 
             int flag = 0;
-            for (int i = 1; i < clipp.Length; i++)
+            for (int i = 0; i < clipp.Length; i++)
             {
-                if (clipp[i] == ' ')  {  flag = 0;  }
+                if (clipp[i] == ' ') { flag = 0; }
                 if (flag == 20)
                 {
                     clipp = clipp.Insert(i, "</br>");
                     i += 5;
+                    flag = 0;
                 }
                 flag++;
             }
@@ -40,29 +57,41 @@
     </div>
 
     <div class="botton">
-        <a class="a_botton" asp-action="Section" asp-controller="Section" asp-route-id="@Model.Idsection">
-            @Model.IdsectionNavigation.Name
+        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.Idsection">
+            @{
+                string nameS = Model.IdsectionNavigation.Name;
+                if (nameS.Length > 24)
+                {
+                    nameS = nameS.Substring(0, 24);
+                    nameS += "...";
+                }
+                @Html.Raw(nameS)
+            }
         </a>
     </div>
 
-    <a class="a_botton" asp-action="Autor" asp-controller="Autor" asp-route-id="@Model.Idautor">
-        <div class="half_article_autor">
-            @if (Model.Idautor != null)
-            {
-                @Html.Raw("<img class='half_article_autor_img' " +
-                                    "src=\"data:image/png; base64," + Convert.ToBase64String(Model.IdautorNavigation.Avatar) + "\" />")
+    <div class="half_article_autor">
+        @if (Model.Idautor != null)
+        {
+            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.Idautor">
+                <div class="half_article_autor_img_center">
+                    @Html.Raw("<img class='half_article_autor_img' " +
+                    "src=\"data:image/png; base64," + Convert.ToBase64String(Model.IdautorNavigation.Avatar) + "\" />")
+                </div>
 
                 <div class="half_article_autor_name">
                     @Model.IdautorNavigation.Name
                 </div>
-            }
-            else
-            {
+            </a>
+        }
+        else
+        {
+            <div class="half_article_autor_img_center">
                 <img class="half_article_autor_img" src="~/icons/acorn.png" />
-                <div class="half_article_autor_name">Автор не известен</div>
-            }
-        </div>
-    </a>
+            </div>
+            <div class="half_article_autor_name">Автор не известен</div>
+        }
+    </div>
 
     <div class="half_article_date">@Model.Date.ToString()</div>
 

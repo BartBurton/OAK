@@ -4,7 +4,7 @@
     Layout = "_LayoutLogin";
 }
 
-<form class="sign_form" asp-action="Code" asp-controller="Login" method="post">
+<form class="sign_form" asp-controller="Login" asp-action="Code" method="post">
 
     <br>
     <label asp-for="Code">Полученный по email код</label>
@@ -19,25 +19,15 @@
     <br>
     <br>
 
-    <p>
-        <a class="forgot" asp-action="SignIn" asp-controller="Login">
-            Войти
-        </a>
-    </p>
-    <br>
 
-    <p>
-        <a class="forgot" asp-action="Registration" asp-controller="Login">
-            Регистрация
-        </a>
-    </p>
+    <a class="forgot" asp-controller="Login" asp-action="SignUp">Регистрация</a>
     <br>
-
-    <p>
-        <a class="forgot" asp-action="Articles" asp-controller="Articles">
-            Доступ без входа
-        </a>
-    </p>
+    <br>
+    <a class="forgot" asp-controller="Login" asp-action="SignIn">Войти</a>
+    <br>
+    <br>
+    <a class="forgot" asp-controller="Articles" asp-action="News">Доступ без входа</a>
+    <br>
     <br>
 
 </form>

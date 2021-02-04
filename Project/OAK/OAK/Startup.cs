@@ -38,7 +38,7 @@ namespace OAK
             });
 
             services.AddHttpContextAccessor();
-            services.AddTransient<Services.ICurrentUserAvatar, Services.CurrentUserAvatar>();
+            services.AddTransient<Services.ICurrentUser, Services.CurrentUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +66,7 @@ namespace OAK
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Articles}/{action=Articles}/{id?}");
+                    pattern: "{controller=Articles}/{action=News}/{id?}");
             });
         }
     }

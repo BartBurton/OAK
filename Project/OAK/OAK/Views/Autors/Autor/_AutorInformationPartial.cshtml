@@ -1,0 +1,25 @@
+﻿@model Autor
+@inject ICurrentUser User
+@{
+    Autor CurrentUser = User.GetCurrentUser().Result;
+}
+
+<div class="autor_inf">
+    <div class="autor_img_center">
+        @Html.Raw("<img class='autor_img' " +
+        "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Avatar) + "\" />")
+    </div>
+
+    <p class="autor_name">@Model.Name</p>
+
+
+    @if (Model.Id == CurrentUser?.Id)
+    {
+        <a asp-controller="EditProfile" asp-action="Edit">
+            <img class="profile_settings" src="~/icons/settings.png">
+        </a>
+    }
+
+
+    <p class="autor_status">@Model.Status</p>
+</div>

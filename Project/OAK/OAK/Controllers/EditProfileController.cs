@@ -21,47 +21,36 @@ namespace OAK.Controllers
             _oak = oak;
         }
 
-        public async Task<IActionResult> EditProfile()
+        public async Task<IActionResult> Edit()
         {
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
-            ProfileEditedModel model = new ProfileEditedModel()
-            {
-                Name = autor.Name,
-                Status = autor.Status,
-                AvatarBinary = autor.Avatar
-            };
+            ProfileEditedModel model = new ProfileEditedModel();
+            model.FromAutor(autor);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProfile(ProfileEditedModel model)
+        public async Task<IActionResult> Edit(ProfileEditedModel model)
         {
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
-
-            autor.Name = model.Name;
-            autor.Status = model.Status;
-
-            if (model.Avatar != null)
-            {
-                using (BinaryReader br = new BinaryReader(model.Avatar.OpenReadStream()))
-                {
-                    autor.Avatar = br.ReadBytes((int)model.Avatar.Length);
-                } 
-            }
+            model.ToAutor(ref autor);
 
             _oak.SaveChanges();
 
-            return RedirectToAction("Profile", "Profile");
+            return RedirectToAction("Autor", "Autors", new { autor.Id });
         }
 
-        public async Task<IActionResult> DropProfile()
+        public async Task<IActionResult> Drop()
         {
-            Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
+                .Include(a => a.FavAutorIdautorfavoriteNavigations)
+                .FirstOrDefaultAsync();
 
+            _oak.FavAutors.RemoveRange(autor.FavAutorIdautorfavoriteNavigations);
             _oak.Autors.Remove(autor);
             _oak.SaveChanges();
 
-            return RedirectToAction("Logout", "Login");
+            return RedirectToAction("SignOut", "Login");
         }
     }
 }

@@ -7,13 +7,15 @@
     }
 
     <div class="botton">
-        <a class="a_botton" asp-action="CreatedArticles" asp-controller="Articles" asp-route-start="@(--ViewBag.Start)">
+        <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles"
+           asp-route-start="@(--ViewBag.Start)">
             Назад
         </a>
     </div>
 
     <div class="botton">
-        <a class="a_botton" asp-action="CreatedArticles" asp-controller="Articles" asp-route-start="@(ViewBag.Start + 2)">
+        <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles"
+           asp-route-start="@((Model.Count != 0) ? ViewBag.Start + 2 : 0)">
             Ещё
         </a>
     </div>

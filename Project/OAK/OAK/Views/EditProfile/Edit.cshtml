@@ -1,0 +1,37 @@
+﻿@model OAK.Models.Edited.ProfileEditedModel
+
+
+<form class="edit_profile_form" asp-controller="EditProfile" asp-action="Edit" method="post" 
+      enctype="multipart/form-data">
+    <div class="edit_profile_img" id="avatar">
+
+        <div class="edit_profile_img_avatar_center">
+            @Html.Raw("<img class='edit_profile_img_avatar' id='preview' " +
+            "src=\"data:image/png; base64," + Convert.ToBase64String(Model.AvatarBinary) + "\" />")
+        </div>
+
+        <input type="file" id="input" class="edit_profile_img_input" multiple="" accept="image/*"
+               style="opacity: 0;" asp-for="Avatar">
+    </div>
+
+    <input class="edit_profile_name" asp-for="Name">
+
+    <textarea class="edit_profile_status" asp-for="Status"></textarea>
+
+    <button class="standart_buttom edit_profile_botton" type="submit">Сохранить</button>
+</form>
+
+
+<div class="out edit_profile_drop">
+    <a class="a_botton" asp-controller="EditProfile" asp-action="Drop">
+        Удалить профиль
+    </a>
+</div>
+
+
+
+@await Html.PartialAsync("_jsEditProfilePartilal")
+
+
+
+

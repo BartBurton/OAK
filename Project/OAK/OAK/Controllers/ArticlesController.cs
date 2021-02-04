@@ -22,15 +22,21 @@ namespace OAK.Controllers
         }
 
 
-        public IActionResult Articles(int start = 0)
+        public IActionResult Article(long? id)
+        {
+            return View();
+        }
+
+
+
+        public IActionResult News(int start = 0)
         {
             start = (start >= 0) ? start : 0;
 
             ViewBag.Title = "Статьи ДУБа";
-            ViewBag.Start = start;
 
             var articles = _oak.Articles
-                .OrderBy(a => a.Date)
+                .OrderByDescending(a => a.Date)
                 .Skip(start * _countOfEl)
                 .Take(_countOfEl)
                 .Include(a => a.IdautorNavigation)
@@ -39,8 +45,13 @@ namespace OAK.Controllers
                 .Include(a => a.ArtImages.Take(1))
                 .ToList();
 
+            ViewBag.Start = start; 
+
+
+
             return View(articles);
         }
+
 
         public IActionResult CreatedArticles(long? id, int start = 0)
         {
@@ -51,6 +62,7 @@ namespace OAK.Controllers
             return View();
         }
 
+
         public IActionResult FavoriteArticles(long? id, int start = 0)
         {
             start = (start >= 0) ? start : 0;
@@ -58,6 +70,7 @@ namespace OAK.Controllers
 
             return View();
         }
+
 
         public IActionResult ArticlesSection(long? id, int start = 0)
         {
@@ -68,7 +81,7 @@ namespace OAK.Controllers
         }
 
 
-        public IActionResult NewsArticleseFromFavorite(int start = 0)
+        public IActionResult NewsFavorite(long? id, int start = 0)
         {
             start = (start >= 0) ? start : 0;
             ViewBag.Start = start;

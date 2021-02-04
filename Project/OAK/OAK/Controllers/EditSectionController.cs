@@ -21,11 +21,11 @@ namespace OAK.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditCreateSection(long? id)
+        public async Task<IActionResult> EditCreate(long? id)
         {
-            ViewData["Sections"] = await _oak.Sections.ToListAsync();
-
+            List<Section> sections = await _oak.Sections.ToListAsync();
             SectionEditedModel model = new SectionEditedModel();
+
             if (id != null)
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
@@ -34,20 +34,31 @@ namespace OAK.Controllers
                     .Include(a => a.Sections)
                     .FirstOrDefaultAsync();
 
-                if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
+                if (!SectionEditedModel.HaveSection(autor, section)) 
+                { 
+                    return RedirectToAction("Autor", "Autors", new { autor.Id }); 
+                }
 
                 model.FromSection(section);
-            } 
+                model.RemoveChildren(sections);
+            }
 
+            ViewData["Sections"] = sections;
             return View(model);
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> EditCreateSection(long? id, SectionEditedModel model)
+        public async Task<IActionResult> EditCreate(long? id, SectionEditedModel model)
         {
-            ViewData["Sections"] = await _oak.Sections.ToListAsync();
+            List<Section> sections = await _oak.Sections.ToListAsync();
+            if(id != null)
+            {
+                model.RemoveChildren(sections);
+            }
+            ViewData["Sections"] = sections;
+
             if (!model.IsUnique(await _oak.Sections.ToListAsync()))
             {
                 ModelState.AddModelError("Parent", "");
@@ -75,21 +86,24 @@ namespace OAK.Controllers
             else
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == id);
-                if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
+                if (!SectionEditedModel.HaveSection(autor, section)) 
+                { 
+                    return RedirectToAction("Autor", "Autors", new { autor.Id }); 
+                }
                 model.ToSection(ref section, await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Parent), autor);
 
                 _oak.SaveChanges();
             }
 
 
-            return RedirectToAction("Profile", "Profile");
+            return RedirectToAction("Autor", "Autors", new { autor.Id });
         }
 
 
 
-        public async Task<IActionResult> DropSection(long? id)
+        public async Task<IActionResult> Drop(long? id)
         {
-            if(id == null) { return RedirectToAction("Profile", "Profile"); }
+            if(id == null) { return RedirectToAction("News", "Articles"); }
 
             Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
                 .Include(a => a.Sections)
@@ -99,7 +113,7 @@ namespace OAK.Controllers
                 .Include(s => s.InverseIdparentNavigation)
                 .FirstOrDefaultAsync();
 
-            if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Profile", "Profile"); }
+            if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Autor", "Autors", new { autor.Id }); }
 
             Section[] sections;
             List<Section> children = section.InverseIdparentNavigation.ToList();
@@ -121,7 +135,7 @@ namespace OAK.Controllers
             _oak.Sections.Remove(section);
             _oak.SaveChanges();
 
-            return RedirectToAction("Profile", "Profile");
+            return RedirectToAction("Autor", "Autors", new { autor.Id });
         }
     }
 }
