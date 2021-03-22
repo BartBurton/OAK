@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {}
+    "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {
+    "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\OAK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
+        "projectUniqueName": "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
         "projectName": "OAK",
-        "projectPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
+        "projectPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
         "packagesPath": "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\obj\\",
+        "outputPath": "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
           "C:\\Users\\MAXXXYMIRON\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -81,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

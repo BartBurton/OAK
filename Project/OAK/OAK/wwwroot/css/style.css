@@ -172,12 +172,12 @@ header {
     align-items: center;
     height: 50px;
     width: 50px;
+    background-color: #747a8d;
 }
 
 .header_profile {
     max-height: 50px;
     max-width: 50px;
-    background-color: #747a8d;
 }
 
 .botton {

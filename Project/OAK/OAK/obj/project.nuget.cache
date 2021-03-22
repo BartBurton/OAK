@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1HQplTs7bHuOBvkBKiTLiT8CBxn/EZ+tVamyiUefCEbijQvXKoY1F7YK9no+mlvecO70M7ENQwlyseZ5UiWo2Q==",
+  "dgSpecHash": "jjey3WpSxW2iZ/zgTPvpfBAni1lyGM3zGlMjlg+greDcf0OABpT8LWowkqNDPkArnWfZaW0l9Bju2ldFx7NPqQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MAXXXYMIRON\\Desktop\\Тематические блоги с элемнтами новостей\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
+  "projectFilePath": "C:\\Users\\MAXXXYMIRON\\Desktop\\OAK\\Project\\OAK\\OAK\\OAK.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\buildbundlerminifier\\3.2.449\\buildbundlerminifier.3.2.449.nupkg.sha512",
     "C:\\Users\\MAXXXYMIRON\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
