@@ -38,6 +38,7 @@ namespace OAK
             });
 
             services.AddHttpContextAccessor();
+
             services.AddTransient<Services.ICurrentUser, Services.CurrentUser>();
         }
 
