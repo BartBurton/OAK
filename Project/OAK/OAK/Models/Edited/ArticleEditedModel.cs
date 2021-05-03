@@ -1,26 +1,25 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using OAK.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace OAK.Models.Edited
 {
     public class ArticleEditedModel
     {
         public long? Id { get; set; } = null;
+
         [Required]
         [MaxLength(32, ErrorMessage = "Не больше 32 символов!")]
         public string Name { get; set; }
+
         [Required]
         public long Section { get; set; }
-        public DateTime DateTime { get; set; }
 
+        public DateTime DateTime { get; set; }
 
         private List<(string Type, short Number, byte[] Data)> _content { get; set; } =
             new List<(string Type, short Number, byte[] Data)>();
@@ -31,69 +30,66 @@ namespace OAK.Models.Edited
             set => _content = value;
         }
 
-
-        public ArticleEditedModel() 
+        public ArticleEditedModel()
         {
             DateTime = System.DateTime.Now;
         }
 
         public void FromArticle(Article article)
         {
-            Id = article.Id;
+            Id = article.ID;
             Name = article.Name;
-            Section = article.Idsection;
+            Section = article.SectionID;
 
             _content.AddRange(from t in article.ArtTexts
-                            select ("text", t.Number, t.Text));
+                              select ("text", t.Number, t.Text));
             _content.AddRange(from s in article.ArtSubtitles
-                             select ("sub", s.Number, s.Subtitle));
+                              select ("sub", s.Number, s.Subtitle));
             _content.AddRange(from i in article.ArtImages
-                             select ("img", i.Number, i.Image));
+                              select ("img", i.Number, i.Image));
         }
 
         public void ToArticle(Article article, Autor autor, Section section)
         {
             article.Name = Name;
             article.Date = DateTime;
-            article.IdautorNavigation = autor;
-            article.Idsection = Section;
-            article.IdsectionNavigation = section;
+            article.Autor = autor;
+            article.SectionID = Section;
+            article.Section = section;
 
-            article.ArtTexts = (from t in Content 
-                               where t.Type == "text" 
-                               select new ArtText() { 
-                                    IdarticleNavigation = article,
+            article.ArtTexts = (from t in Content
+                                where t.Type == "text"
+                                select new ArtText()
+                                {
+                                    Article = article,
                                     Number = t.Number,
-                                    Idtext = Guid.NewGuid(),
                                     Text = t.Data
-                               }).ToList();
+                                }).ToList();
 
             article.ArtSubtitles = (from t in Content
-                                where t.Type == "sub"
-                                select new ArtSubtitle()
-                                {
-                                    IdarticleNavigation = article,
-                                    Number = t.Number,
-                                    Idsubtitle = Guid.NewGuid(),
-                                    Subtitle = t.Data
-                                }).ToList();
+                                    where t.Type == "sub"
+                                    select new ArtSubtitle()
+                                    {
+                                        Article = article,
+                                        Number = t.Number,
+                                        Subtitle = t.Data
+                                    }).ToList();
 
             article.ArtImages = (from t in Content
-                                where t.Type == "img"
-                                select new ArtImage()
-                                {
-                                    IdarticleNavigation = article,
-                                    Number = t.Number,
-                                    Idimage = Guid.NewGuid(),
-                                    Image = t.Data
-                                }).ToList();
+                                 where t.Type == "img"
+                                 select new ArtImage()
+                                 {
+                                     Article = article,
+                                     Number = t.Number,
+                                     Image = t.Data
+                                 }).ToList();
         }
 
         private void addContent(string type, short number, byte[] data)
         {
             _content.RemoveAll(e => e.Type == type && e.Number == number);
 
-            if(data.Length != 0)
+            if (data.Length != 0)
             {
                 _content.Add((type, number, data));
             }
@@ -143,7 +139,7 @@ namespace OAK.Models.Edited
                     data = Encoding.UTF8.GetBytes(item.Value);
                     addContent(type, number, data);
                 }
-                else if(item.Key[0..3] == "img")
+                else if (item.Key[0..3] == "img")
                 {
                     type = item.Key[0..3];
                     number = Convert.ToInt16(item.Key[3..]);
@@ -166,7 +162,6 @@ namespace OAK.Models.Edited
             }
             delExcessContent(request);
         }
-
 
         static public bool HaveArticle(Autor autor, Article article)
             => autor.Articles.Contains(article);

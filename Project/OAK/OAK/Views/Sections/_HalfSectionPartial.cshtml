@@ -4,14 +4,13 @@
     Autor CurrentUser = User.GetCurrentUser().Result;
 }
 
-
 <div class="half_section">
     <div class="half_section_autor_center">
-        @if (Model.IdautorNavigation != null)
+        @if (Model.Autor != null)
         {
-            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.Idautor">
+            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID">
                 @Html.Raw("<img class='half_section_autor' " +
-                "src=\"data:image/png; base64," + Convert.ToBase64String(Model.IdautorNavigation.Avatar) + "\" />")
+                "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Autor.Avatar) + "\" />")
             </a>
         }
         else
@@ -21,24 +20,24 @@
     </div>
 
     <div class="half_section_inf">
-        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.Id">
+        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ID">
             <p class="half_section_name">@Model.Name</p>
         </a>
 
-        @if (CurrentUser != null && Model.Idautor == CurrentUser.Id)
+        @if (Model.AutorID == CurrentUser?.ID)
         {
-            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.Id">
+            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.ID">
                 <img class="sections_favorite" src="~/icons/settings.png">
             </a>
         }
 
         <div class="half_section_parent">
             <p class="half_section_parent_record ">Родительская ветвь: </p>
-            @if (Model.IdparentNavigation != null)
+            @if (Model.Parent != null)
             {
                 <div class="botton">
-                    <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.Idparent">
-                        @Model.IdparentNavigation.Name
+                    <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ParentID">
+                        @Model.Parent.Name
                     </a>
                 </div>
             }
@@ -49,8 +48,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-

@@ -37,16 +37,14 @@ namespace OAK.Controllers
 
             _oak.SaveChanges();
 
-            return RedirectToAction("Autor", "Autors", new { autor.Id });
+            return RedirectToAction("Autor", "Autors", new { autor.ID });
         }
 
         public async Task<IActionResult> Drop()
         {
             Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                .Include(a => a.FavAutorIdautorfavoriteNavigations)
                 .FirstOrDefaultAsync();
 
-            _oak.FavAutors.RemoveRange(autor.FavAutorIdautorfavoriteNavigations);
             _oak.Autors.Remove(autor);
             _oak.SaveChanges();
 

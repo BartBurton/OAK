@@ -8,21 +8,6 @@
     @* Остновная информация об авторе*@
     @await Html.PartialAsync("~/Views/Autors/Autor/_AutorInformationPartial.cshtml", Model)
 
-
-    @* Пользователи, у которых данный автор в избранном *@
-    @await Html.PartialAsync("~/Views/Autors/Autor/_AutorInFavoritesPartial.cshtml", Model)
-
-    @* Избранные автором пользователи *@
-    @await Html.PartialAsync("~/Views/Autors/Autor/_AutorFavoriteAutorsPartial.cshtml", Model)
-
-    @* Избранные автором разделы *@
-    @await Html.PartialAsync("~/Views/Autors/Autor/_AutorFavoriteSectionsPartial.cshtml", Model)
-
-
-    @* Избранные автором статьи *@
-    @await Html.PartialAsync("~/Views/Autors/Autor/_AutorFavoriteArticlesPartial.cshtml", Model)
-
-
     @* Созданные автором статьи *@
     @await Html.PartialAsync("~/Views/Autors/Autor/_AutorCreatedArticlesPartial.cshtml", Model)
 
@@ -30,7 +15,7 @@
     @await Html.PartialAsync("~/Views/Autors/Autor/_AutorCreatedSectionsPartial.cshtml", Model)
 
 
-    @if (Model.Id == CurrentUser?.Id)
+    @if (Model.ID == CurrentUser?.ID)
     {
         <div class="out">
             <a class="a_botton" asp-controller="Login" asp-action="SignOut">

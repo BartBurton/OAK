@@ -1,0 +1,68 @@
+﻿@model Article
+@inject ICurrentUser User
+@{
+    Autor CurrentUser = User.GetCurrentUser().Result;
+    List<(string Type, short Number, byte[] Data)> Content = ViewBag.Content;
+
+    string RightString(string str, int len)
+    {
+
+        StringBuilder rstr = new StringBuilder(str);
+        rstr = rstr.Replace("\r\n", "</br>");
+
+        int flag = 0;
+
+        for (int i = 0; i < rstr.Length; i++)
+        {
+            flag++;
+            if (rstr[i] == ' ') { flag = 0; }
+            if (flag == len)
+            {
+                rstr = rstr.Insert(i, "</br>");
+                i += 5;
+                flag = 0;
+            }
+        }
+
+        return rstr.ToString();
+    }
+}
+
+
+@await Html.PartialAsync("~/Views/Articles/Article/_ArticleInformationPartial.cshtml", Model)
+
+
+<!-- Статья -->
+<div class="article">
+    <!-- Заголовок -->
+    <h1 class="article_title">@Model.Name</h1>
+
+
+    @if (Model.AutorID == CurrentUser?.ID)
+    {
+        <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID">
+            <img class="profile_settings" src="~/icons/settings.png">
+        </a>
+    }
+    <hr>
+
+    @foreach (var item in Content)
+    {
+        if (item.Type == "text")
+        {
+            string value = Encoding.UTF8.GetString(item.Data);
+            <p class="article_text">@Html.Raw(RightString(value, 50))</p>
+        }
+        else if (item.Type == "sub")
+        {
+            string value = Encoding.UTF8.GetString(item.Data);
+            <p class="article_subtitle">@Html.Raw(RightString(value, 40))</p>
+        }
+        else if (item.Type == "img")
+        {
+            @Html.Raw("<img class='article_image' " +
+                "src=\"data:image/png; base64," + Convert.ToBase64String(item.Data) + "\" />")
+        }
+    }
+    <hr>
+</div>

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
+﻿#nullable disable
 
 namespace OAK.Models
 {
-    public partial class ArtSubtitle
+    public class ArtSubtitle
     {
-        public long Idarticle { get; set; }
+        public long ID { get; set; }
         public short Number { get; set; }
-        public Guid Idsubtitle { get; set; }
         public byte[] Subtitle { get; set; }
 
-        public virtual Article IdarticleNavigation { get; set; }
+        public long ArticleID { get; set; }
+
+        public Article Article { get; set; }
     }
 }

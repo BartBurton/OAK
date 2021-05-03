@@ -1,1 +1,7 @@
-﻿
+﻿@model Section
+
+<div class="content">
+    @await Html.PartialAsync("~/Views/Sections/Section/_SectionInformationPartial.cshtml", Model)
+    @await Html.PartialAsync("~/Views/Sections/Section/_SectionaRelativesPartial.cshtml", Model)
+    @await Html.PartialAsync("~/Views/Sections/Section/_SectionInsideArticlesPartial.cshtml", Model)
+</div>

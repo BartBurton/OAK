@@ -1,5 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Section
+
+<div class="liced_articles" style="margin-top:100px">
+
+    <a class="a_botton" asp-controller="Sections" asp-action="SectionsRelatives" asp-route-id="@Model.ID">
+        <p class="liced_articles_title">Дочерние ветви:</p>
+    </a>
+
+    <div class="liced_sections">
+        @{
+            var sections = Model.Children;
+            foreach (var item in sections)
+            {
+                @await Html.PartialAsync("~/Views/Sections/_HalfSectionPartial.cshtml", item)
+            }
+        }
+    </div>
+
+    <a class="a_botton" asp-controller="Sections" asp-action="SectionsRelatives" asp-route-id="@Model.ID">
+        <p class="liced_articles_dots">. . .</p>
+    </a>
+</div>

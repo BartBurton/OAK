@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[3.2.449, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[2.11.1, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.2, )"

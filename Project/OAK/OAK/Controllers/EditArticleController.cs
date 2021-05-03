@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Text;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OAK.Models;
 using OAK.Models.Edited;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OAK.Controllers
 {
@@ -31,7 +26,7 @@ namespace OAK.Controllers
 
             if (id != null)
             {
-                Article article = await _oak.Articles.Where(a => a.Id == id)
+                Article article = await _oak.Articles.Where(a => a.ID == id)
                     .Include(a => a.ArtTexts)
                     .Include(a => a.ArtSubtitles)
                     .Include(a => a.ArtImages)
@@ -41,9 +36,9 @@ namespace OAK.Controllers
                     .Include(a => a.Articles)
                     .FirstOrDefaultAsync();
 
-                if (!ArticleEditedModel.HaveArticle(autor, article)) 
-                { 
-                    return RedirectToAction("Autor", "Autors", new { autor.Id }); 
+                if (!ArticleEditedModel.HaveArticle(autor, article))
+                {
+                    return RedirectToAction("Autor", "Autors", new { autor.ID });
                 }
 
                 model.FromArticle(article);
@@ -51,8 +46,6 @@ namespace OAK.Controllers
 
             return View(model);
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> EditCreate(long? id, ArticleEditedModel model)
@@ -70,17 +63,17 @@ namespace OAK.Controllers
                 .Include(a => a.Articles)
                 .FirstOrDefaultAsync();
 
-            Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.Id == model.Section);
+            Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Section);
 
             Article article = new Article();
 
             if (id != null)
             {
-                Article deleted = await _oak.Articles.FirstOrDefaultAsync(a => a.Id == id);
+                Article deleted = await _oak.Articles.FirstOrDefaultAsync(a => a.ID == id);
 
-                if (!ArticleEditedModel.HaveArticle(autor, deleted)) 
-                { 
-                    return RedirectToAction("Autor", "Autors", new { autor.Id }); 
+                if (!ArticleEditedModel.HaveArticle(autor, deleted))
+                {
+                    return RedirectToAction("Autor", "Autors", new { autor.ID });
                 }
 
                 _oak.Articles.Remove(deleted);
@@ -92,9 +85,8 @@ namespace OAK.Controllers
             await _oak.Articles.AddAsync(article);
             _oak.SaveChanges();
 
-            return RedirectToAction("Autor", "Autors", new { autor.Id });
+            return RedirectToAction("Autor", "Autors", new { autor.ID });
         }
-
 
         public async Task<IActionResult> Drop(long? id)
         {
@@ -104,17 +96,17 @@ namespace OAK.Controllers
                 .Include(a => a.Articles)
                 .FirstOrDefaultAsync();
 
-            Article deleted = await _oak.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            Article deleted = await _oak.Articles.FirstOrDefaultAsync(a => a.ID == id);
 
-            if (!ArticleEditedModel.HaveArticle(autor, deleted)) 
-            { 
-                return RedirectToAction("Autor", "Autors", new { autor.Id }); 
+            if (!ArticleEditedModel.HaveArticle(autor, deleted))
+            {
+                return RedirectToAction("Autor", "Autors", new { autor.ID });
             }
 
             _oak.Articles.Remove(deleted);
             _oak.SaveChanges();
 
-            return RedirectToAction("Autor", "Autors", new { autor.Id });
+            return RedirectToAction("Autor", "Autors", new { autor.ID });
         }
     }
 }

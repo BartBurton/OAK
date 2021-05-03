@@ -1,11 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using OAK.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace OAK.Models.Login
 {
@@ -31,13 +25,11 @@ namespace OAK.Models.Login
         [Compare("Password", ErrorMessage = "Пароли не совпадают!")]
         public string ConfirmPassword { get; set; }
 
-
         public void ToAutor(ref Autor autor)
         {
             autor.Name = Name;
             autor.Email = Email;
             autor.Password = Password;
-            autor.Idavatar = Guid.NewGuid();
             using (BinaryReader br = new BinaryReader(new FileStream("wwwroot/icons/user.png", FileMode.Open)))
             {
                 autor.Avatar = br.ReadBytes((int)br.BaseStream.Length);

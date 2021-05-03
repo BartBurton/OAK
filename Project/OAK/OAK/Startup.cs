@@ -37,6 +37,11 @@ namespace OAK
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/SignIn");
             });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromSeconds(300);
+            });
+
             services.AddHttpContextAccessor();
 
             services.AddTransient<Services.ICurrentUser, Services.CurrentUser>();
@@ -62,6 +67,8 @@ namespace OAK
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

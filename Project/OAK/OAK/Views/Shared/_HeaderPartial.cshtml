@@ -17,16 +17,11 @@
     @if (CurrentUser != null)
     {
         <a asp-controller="Autors" asp-action="Autor" 
-           asp-route-id="@CurrentUser.Id" title="Профиль">
+           asp-route-id="@CurrentUser.ID" title="Профиль">
             <div class="header_profile_center">
                 @Html.Raw("<img class='header_profile' " +
                 "src=\"data:image/png; base64," + Convert.ToBase64String(CurrentUser.Avatar) + "\" />")
             </div>
-        </a>
-
-        <a asp-controller="Articles" asp-action="NewsFavorite" 
-           asp-route-id="@CurrentUser.Id" title="Новое для вас">
-            <img class="header_favorite" src="~/icons/leaf.png">
         </a>
     }
     else
@@ -35,9 +30,6 @@
             <div class="header_profile_center">
                 <img class="header_profile" src="~/icons/user.png">
             </div>
-        </a>
-        <a asp-controller="Login" asp-action="SignIn" title="Новое для вас">
-            <img class="header_favorite" src="~/icons/leaf.png">
         </a>
     }
 </header>

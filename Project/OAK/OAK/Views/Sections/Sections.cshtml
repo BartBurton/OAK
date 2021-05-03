@@ -8,14 +8,14 @@
 
     <div class="nextback">
         <div class="botton">
-            <a class="a_botton" asp-controller="Sections" asp-action="All"
+            <a class="a_botton" asp-controller="Sections" asp-action="@ViewBag.Action"
                asp-route-start="@(--ViewBag.Start)">
                 Назад
             </a>
         </div>
 
         <div class="botton">
-            <a class="a_botton" asp-controller="Sections" asp-action="All"
+            <a class="a_botton" asp-controller="Sections" asp-action="@ViewBag.Action"
                asp-route-start="@((Model.Count != 0) ? ViewBag.Start + 2 : 0)">
                 Ещё
             </a>

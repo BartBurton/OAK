@@ -1,0 +1,32 @@
+﻿@model Article
+
+<!-- Раздел -->
+<div class="botton">
+    <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.SectionID">
+        @Model.Section.Name
+    </a>
+</div>
+
+<!-- Автор -->
+@if (Model.Autor is null)
+{
+    <div class="half_article_autor">
+        <img class="half_article_autor_img" src="~/icons/acorn.png" />
+        <div class="half_article_autor_name">Автор неизвестен</div>
+    </div>
+}
+else
+{
+    <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID">
+        <div class="half_article_autor">
+            <div class="half_article_autor_img_center">
+                @Html.Raw("<img class='half_article_autor_img' " +
+                    "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Autor.Avatar) + "\" />")
+            </div>
+            <div class="half_article_autor_name">@Model.Autor.Name</div>
+        </div>
+    </a>
+}
+
+<!-- Дата -->
+<div class="half_article_date">@Model.Date</div>

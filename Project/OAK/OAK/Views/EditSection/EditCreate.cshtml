@@ -1,6 +1,5 @@
 ﻿@model OAK.Models.Edited.SectionEditedModel
 
-
 <form asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.Id" method="post">
 
     <label class="edit_section_record" asp-for="Parent">Родительская ветвь:</label>
@@ -10,20 +9,19 @@
         @{
             List<Section> sections = ViewData["Sections"] as List<Section>;
 
-            Section selected = sections.Find(s => s.Id == Model.Parent);
-            if(selected != null)
+            Section selected = sections.Find(s => s.ID == Model.Parent);
+            if (selected != null)
             {
-                @:<option value="@selected.Id" class="edit_section_parent_section" selected>@selected.Name</option>
+                @:<option value="@selected.ID" class="edit_section_parent_section" selected>@selected.Name</option>
                 sections.Remove(selected);
             }
 
             foreach (var item in sections)
             {
-                <option value="@item.Id" class="edit_section_parent_section">@item.Name</option>
+                <option value="@item.ID" class="edit_section_parent_section">@item.Name</option>
             }
         }
     </select>
-
 
     <label class="edit_section_record" asp-for="Name">Название:</label>
     <input class="edit_profile_name edit_section_name" asp-for="Name">
@@ -32,7 +30,6 @@
     <br>
 
     <button class="standart_buttom edit_profile_botton">Сохранить</button>
-
 </form>
 
 <div class="out edit_profile_drop">

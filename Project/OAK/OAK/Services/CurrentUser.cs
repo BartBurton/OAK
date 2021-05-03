@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using OAK.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using OAK.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 
 namespace OAK.Services
 {
@@ -27,9 +25,6 @@ namespace OAK.Services
             {
                 autor = await _oak.Autors
                     .Where(a => a.Email == _httpContextAccessor.HttpContext.User.Identity.Name)
-                    .Include(a => a.FavArticles)
-                    .Include(a => a.FavAutorIdautororiginNavigations)
-                    .Include(a => a.FavSections)
                     .FirstOrDefaultAsync();
             }
 

@@ -172,12 +172,13 @@ header {
     align-items: center;
     height: 50px;
     width: 50px;
-    background-color: #747a8d;
+    background-color: #747a8d;  
 }
 
 .header_profile {
     max-height: 50px;
     max-width: 50px;
+    background-color: #747a8d;  
 }
 
 .botton {
@@ -295,6 +296,7 @@ a.a_botton {
     max-height: 50px;
     max-width: 50px;
 }
+
 .half_article_autor_name {
   float: left;
   color: #747a8d;
@@ -705,14 +707,20 @@ a.a_botton {
   margin-bottom: 15px;
   margin-top: 10px;
 }
+
+.section_inf_autor_img_center {
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
 .section_inf_autor_img {
-  float: right;
-  height: 50px;
-  width: auto;
-  max-width: 50px;
-  background-size: 50px;
-  background-color: #747a8d;
-  margin-right: 10px;
+    max-height: 50px;
+    max-width: 50px;
 }
 
 .section_inf_autor {

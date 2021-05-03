@@ -6,13 +6,13 @@
 
 <div class="liced_articles">
 
-    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.Id">
+    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.ID">
         <p class="liced_articles_title">Созданные статьи</p>
     </a>
 
-    @if (Model.Id == CurrentUser?.Id)
+    @if (Model.ID == CurrentUser?.ID)
     {
-        <p class="profile_howmuch">Статей: @Model.Articles.Count</p>
+        <p class="profile_howmuch">Статей: @ViewBag.CountOfArticles</p>
         <a class="a_botton" asp-controller="EditArticle" asp-action="EditCreate">
             <img class="profile_make" src="~/icons/write.png">
         </a>
@@ -20,14 +20,14 @@
     }
 
     @{
-        var articles = Model.Articles.Take(3);
+        var articles = Model.Articles;
         foreach (var item in articles)
         {
             @await Html.PartialAsync("~/Views/Articles/_HalfArticlePartial.cshtml", item)
         }
     }
 
-    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.Id">
+    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.ID">
         <p class="liced_articles_dots">. . .</p>
     </a>
 </div>
