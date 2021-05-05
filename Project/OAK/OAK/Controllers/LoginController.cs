@@ -30,6 +30,7 @@ namespace OAK.Controllers
         [HttpGet]
         public IActionResult SignUp()
         {
+            ViewBag.Title = "ДУБ - Регистрация";
             return View();
         }
 
@@ -39,6 +40,7 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpModel model)
         {
+            ViewBag.Title = "ДУБ - Регистрация";
             if(!ModelState.IsValid)
             {
                 return View();
@@ -66,6 +68,7 @@ namespace OAK.Controllers
         [HttpGet]
         public IActionResult SignIn()
         {
+            ViewBag.Title = "ДУБ - Вход";
             return View();
         }
 
@@ -75,6 +78,7 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SingInModel model)
         {
+            ViewBag.Title = "ДУБ - Вход";
             if (!ModelState.IsValid)
             {
                 return View();
@@ -102,6 +106,7 @@ namespace OAK.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             return View();
         }
 
@@ -111,6 +116,7 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordModel model)
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             if (!ModelState.IsValid)
             {
                 return View();
@@ -195,6 +201,7 @@ namespace OAK.Controllers
         [HttpGet]
         public IActionResult Code()
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             return View();
         }
 
@@ -204,6 +211,7 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> Code(CodeModel model)
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             if (!ModelState.IsValid)
             {
                 return View();
@@ -234,6 +242,7 @@ namespace OAK.Controllers
         [HttpGet]
         public IActionResult NewPassword()
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             return View();
         }
 
@@ -243,6 +252,7 @@ namespace OAK.Controllers
         [HttpPost]
         public async Task<IActionResult> NewPassword(NewPasswordModel model)
         {
+            ViewBag.Title = "ДУБ - Смена пароля";
             if (!ModelState.IsValid)
             {
                 return View();

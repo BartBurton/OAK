@@ -1,5 +1,4 @@
 ﻿@model Article
-
 <!-- Раздел -->
 <div class="botton">
     <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.SectionID">
@@ -11,7 +10,9 @@
 @if (Model.Autor is null)
 {
     <div class="half_article_autor">
-        <img class="half_article_autor_img" src="~/icons/acorn.png" />
+        <div class="half_article_autor_img_center">
+            <img class="half_article_autor_img" src="~/icons/acorn.png" />
+        </div>
         <div class="half_article_autor_name">Автор неизвестен</div>
     </div>
 }

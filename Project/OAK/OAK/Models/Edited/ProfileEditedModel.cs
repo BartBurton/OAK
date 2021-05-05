@@ -15,7 +15,6 @@ namespace OAK.Models.Edited
         [MaxLength(16, ErrorMessage = "Не больше 16 символов!")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Заполните поле статуса!")]
         [MaxLength(24, ErrorMessage = "Не больше 24 символов!")]
         public string Status { get; set; }
 

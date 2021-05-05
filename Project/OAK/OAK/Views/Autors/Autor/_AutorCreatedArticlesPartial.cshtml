@@ -10,15 +10,15 @@
         <p class="liced_articles_title">Созданные статьи</p>
     </a>
 
+    <p class="profile_howmuch">Статей: @ViewBag.CountOfArticles</p>
     @if (Model.ID == CurrentUser?.ID)
     {
-        <p class="profile_howmuch">Статей: @ViewBag.CountOfArticles</p>
         <a class="a_botton" asp-controller="EditArticle" asp-action="EditCreate">
             <img class="profile_make" src="~/icons/write.png">
         </a>
-        <br><br><br><br>
     }
 
+    <br><br><br><br>
     @{
         var articles = Model.Articles;
         foreach (var item in articles)

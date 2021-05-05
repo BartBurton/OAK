@@ -18,5 +18,24 @@ namespace OAK
         public DbSet<Article> Articles { get; set; }
         public DbSet<Autor> Autors { get; set; }
         public DbSet<Section> Sections { get; set; }
-    }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Section>()
+				.HasOne(s => s.Autor)
+				.WithMany(a => a.Sections)
+				.HasForeignKey(s => s.AutorID)
+				.OnDelete(DeleteBehavior.SetNull)
+				.HasConstraintName("FK_Sections_Autor");
+
+			modelBuilder.Entity<Article>()
+				.HasOne(a => a.Autor)
+				.WithMany(a => a.Articles)
+				.HasForeignKey(a => a.AutorID)
+				.OnDelete(DeleteBehavior.SetNull)
+				.HasConstraintName("FK_Articles_Autor");
+		}
+	}
 }

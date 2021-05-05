@@ -11,8 +11,9 @@ namespace OAK.Models
         public string Password { get; set; }
         public string Status { get; set; }
         public byte[] Avatar { get; set; }
-
         public string? Code { get; set; }
+
+        public ICollection<Article> Liked { get; set; }
 
         public ICollection<Article> Articles { get; set; }
         public ICollection<Section> Sections { get; set; }

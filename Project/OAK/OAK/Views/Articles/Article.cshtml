@@ -29,6 +29,8 @@
 }
 
 
+@await Html.PartialAsync("~/Views/Articles/Article/_jsSetLikePartial.cshtml")
+
 @await Html.PartialAsync("~/Views/Articles/Article/_ArticleInformationPartial.cshtml", Model)
 
 
@@ -40,7 +42,7 @@
 
     @if (Model.AutorID == CurrentUser?.ID)
     {
-        <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID">
+        <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID" target="_blank">
             <img class="profile_settings" src="~/icons/settings.png">
         </a>
     }
@@ -65,4 +67,30 @@
         }
     }
     <hr>
+
+    <img class="article-views" src="~/icons/views.png" />
+    <p class="article-views-count">@Model.Views</p>
+
+    <div id="like" style="cursor:pointer;" data-url="@(Url.Action("SetLike") + "?id=" + Model.ID)">
+        <img class="article-likes" src="~/icons/favorite no.png" />
+        <p class="article-likes-count">@ViewBag.Likes</p>
+    </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $.get("@(Url.Action("ArticleIsLiked") + "?id=" + Model.ID)").done(function (data) {
+                SetLike(data);
+            });
+
+            $("#like").click(function () {
+                $.get($(this).data("url")).done(function (data) {
+                    SetLike(data.access);
+                    $("#like > p").text(data.count);
+                });
+            });
+        });
+    </script>
+}

@@ -27,11 +27,11 @@ namespace OAK.Controllers
 
             if (id != null)
             {
-                Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
+                Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+                if (autor is null) RedirectToAction("News", "Articles");
 
-                Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                    .Include(a => a.Sections)
-                    .FirstOrDefaultAsync();
+                Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
+                if (section is null) RedirectToAction("News", "Articles");
 
                 if (!SectionEditedModel.HaveSection(autor, section))
                 {
@@ -43,6 +43,7 @@ namespace OAK.Controllers
             }
 
             ViewData["Sections"] = sections;
+            ViewBag.Title = "Работа над ветвью";
             return View(model);
         }
 
@@ -60,18 +61,20 @@ namespace OAK.Controllers
             {
                 ModelState.AddModelError("Parent", "");
                 ModelState.AddModelError("Name", "Данная ветвь уже существует! Измените предка или название!");
+                ViewBag.Title = "Работа над ветвью";
                 return View(model);
             }
             if (!model.IsCorrect(await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Parent)))
             {
                 ModelState.AddModelError("Parent", "");
                 ModelState.AddModelError("Name", "Родительская и дочерняя ветви не могут совпадать!");
+                ViewBag.Title = "Работа над ветвью";
                 return View(model);
             }
 
-            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                    .Include(a => a.Sections)
-                    .FirstOrDefaultAsync();
+            Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            _oak.Entry(autor).Collection(a => a.Sections).Load();
+
             if (id == null)
             {
                 Section section = new Section();

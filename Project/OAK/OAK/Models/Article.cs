@@ -10,9 +10,12 @@ namespace OAK.Models
         public long ID { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
+        public int Views { get; set; } = 0;
 
         public long? AutorID { get; set; }
         public long SectionID { get; set; }
+
+        public ICollection<Autor> Likes { get; set; }
 
         public Autor Autor { get; set; }
         public Section Section { get; set; }

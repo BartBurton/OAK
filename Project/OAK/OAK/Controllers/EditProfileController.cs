@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OAK.Models;
 using OAK.Models.Edited;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OAK.Controllers
 {
@@ -26,6 +23,8 @@ namespace OAK.Controllers
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
             ProfileEditedModel model = new ProfileEditedModel();
             model.FromAutor(autor);
+
+            ViewBag.Title = "Редактировать профиль";
             return View(model);
         }
 
@@ -34,7 +33,6 @@ namespace OAK.Controllers
         {
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
             model.ToAutor(ref autor);
-
             _oak.SaveChanges();
 
             return RedirectToAction("Autor", "Autors", new { autor.ID });
@@ -42,9 +40,7 @@ namespace OAK.Controllers
 
         public async Task<IActionResult> Drop()
         {
-            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                .FirstOrDefaultAsync();
-
+            Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
             _oak.Autors.Remove(autor);
             _oak.SaveChanges();
 

@@ -26,24 +26,23 @@ namespace OAK.Controllers
 
             if (id != null)
             {
-                Article article = await _oak.Articles.Where(a => a.ID == id)
-                    .Include(a => a.ArtTexts)
-                    .Include(a => a.ArtSubtitles)
-                    .Include(a => a.ArtImages)
-                    .FirstOrDefaultAsync();
+                var autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+                if (autor is null) RedirectToAction("News", "Articles");
 
-                Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                    .Include(a => a.Articles)
-                    .FirstOrDefaultAsync();
+                var article = await _oak.Articles.FirstOrDefaultAsync(a => a.ID == id);
+                if (article is null) RedirectToAction("News", "Articles");
+
+                _oak.Entry(article).Collection(a => a.ArtTexts).Load();
+                _oak.Entry(article).Collection(a => a.ArtSubtitles).Load();
+                _oak.Entry(article).Collection(a => a.ArtImages).Load();
 
                 if (!ArticleEditedModel.HaveArticle(autor, article))
-                {
-                    return RedirectToAction("Autor", "Autors", new { autor.ID });
-                }
+                    { return RedirectToAction("Autor", "Autors", new { autor.ID }); }
 
                 model.FromArticle(article);
             }
 
+            ViewBag.Title = "Работа над статьей";
             return View(model);
         }
 
@@ -56,12 +55,12 @@ namespace OAK.Controllers
             {
                 ViewData["Sections"] = _oak.Sections.ToList();
                 ModelState.AddModelError("Content", "Хотя бы одно поле текста и изображения должно быть заполнено!");
+
+                ViewBag.Title = "Работа над статьей";
                 return View(model);
             }
 
-            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                .Include(a => a.Articles)
-                .FirstOrDefaultAsync();
+            var autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
 
             Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Section);
 

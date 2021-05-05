@@ -41,12 +41,9 @@ namespace OAK.Models.Edited
             Name = article.Name;
             Section = article.SectionID;
 
-            _content.AddRange(from t in article.ArtTexts
-                              select ("text", t.Number, t.Text));
-            _content.AddRange(from s in article.ArtSubtitles
-                              select ("sub", s.Number, s.Subtitle));
-            _content.AddRange(from i in article.ArtImages
-                              select ("img", i.Number, i.Image));
+            _content.AddRange(from t in article.ArtTexts select ("text", t.Number, t.Text));
+            _content.AddRange(from s in article.ArtSubtitles select ("sub", s.Number, s.Subtitle));
+            _content.AddRange(from i in article.ArtImages select ("img", i.Number, i.Image));
         }
 
         public void ToArticle(Article article, Autor autor, Section section)

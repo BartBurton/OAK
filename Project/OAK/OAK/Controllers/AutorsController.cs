@@ -21,20 +21,24 @@ namespace OAK.Controllers
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.ID == id);
             if (autor == null) return RedirectToAction("News", "Articles");
 
-            autor.Articles = await _oak.Articles.Where(a => a.AutorID == autor.ID)
-                .OrderByDescending(a => a.Date).Take(3)
-                .Include(a => a.Section)
-                .Include(a => a.ArtTexts.Take(1))
-                .Include(a => a.ArtImages.Take(1))
-                .ToListAsync();
+            await _oak.Entry(autor).Collection(a => a.Articles)
+                .Query()
+                .OrderByDescending(ar => ar.Date)
+                .Take(3)
+                .Include(ar => ar.Section)
+                .Include(ar => ar.ArtTexts.Take(1))
+                .Include(ar => ar.ArtImages.Take(1))
+                .LoadAsync();
 
-            autor.Sections = await _oak.Sections.Where(s => s.AutorID == autor.ID).Take(5)
+            await _oak.Entry(autor).Collection(a => a.Sections)
+                .Query()
                 .Include(s => s.Parent)
-                .ToListAsync();
+                .LoadAsync();
 
             ViewBag.CountOfArticles = _oak.Articles.Where(a => a.AutorID == autor.ID).Count();
             ViewBag.CountOfSections = _oak.Sections.Where(a => a.AutorID == autor.ID).Count();
 
+            ViewBag.Title = $"Автор - {autor.Name}";
             return View(autor);
         }
     }

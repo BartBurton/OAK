@@ -8,7 +8,7 @@
     <div class="half_section_autor_center">
         @if (Model.Autor != null)
         {
-            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID">
+            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID" target="_blank">
                 @Html.Raw("<img class='half_section_autor' " +
                 "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Autor.Avatar) + "\" />")
             </a>
@@ -20,13 +20,13 @@
     </div>
 
     <div class="half_section_inf">
-        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ID">
+        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ID" target="_blank">
             <p class="half_section_name">@Model.Name</p>
         </a>
 
         @if (Model.AutorID == CurrentUser?.ID)
         {
-            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.ID">
+            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.ID" target="_blank">
                 <img class="sections_favorite" src="~/icons/settings.png">
             </a>
         }
@@ -36,7 +36,7 @@
             @if (Model.Parent != null)
             {
                 <div class="botton">
-                    <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ParentID">
+                    <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.ParentID" target="_blank">
                         @Model.Parent.Name
                     </a>
                 </div>

@@ -7,13 +7,13 @@
 <div class="half_article">
 
     <div class="half_article_title_inf">
-        <a class="a_botton" asp-controller="Articles" asp-action="Article" asp-route-id="@Model.ID">
+        <a class="a_botton" asp-controller="Articles" asp-action="Article" asp-route-id="@Model.ID" target="_blank">
             <h4 class="half_article_title">@Model.Name</h4>
         </a>
 
         @if (Model.AutorID == CurrentUser?.ID)
         {
-            <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID">
+            <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID" target="_blank">
                 <img class="half_article_favorite" src="~/icons/settings.png">
             </a>
         }
@@ -55,7 +55,7 @@
     </div>
 
     <div class="botton">
-        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.SectionID">
+        <a class="a_botton" asp-controller="Sections" asp-action="Section" asp-route-id="@Model.SectionID" target="_blank">
             @{
                 string nameS = Model.Section.Name;
                 if (nameS.Length > 24)
@@ -71,7 +71,7 @@
     <div class="half_article_autor">
         @if (Model.AutorID != null)
         {
-            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID">
+            <a class="a_botton" asp-controller="Autors" asp-action="Autor" asp-route-id="@Model.AutorID" target="_blank">
                 <div class="half_article_autor_img_center">
                     @Html.Raw("<img class='half_article_autor_img' " +
                     "src=\"data:image/png; base64," + Convert.ToBase64String(Model.Autor.Avatar) + "\" />")

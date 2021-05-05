@@ -74,7 +74,7 @@ namespace OAK
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Articles}/{action=News}/{id?}");
+                    pattern: "{controller=Articles}/{action=All}/{id?}");
             });
         }
     }

@@ -1,0 +1,56 @@
+﻿@model List<Article>
+
+
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("_HalfArticlePartial", item)
+}
+
+
+
+<div class="sort-container">
+    <div class="page-container">
+
+        @if (ViewBag.Current - 1 >= 0)
+        {
+            <a class="page" data-page="@(ViewBag.Current - 1)">
+                @Html.Raw("<")
+            </a>
+        }
+        else
+        {
+            <div class="page page-dis"> @Html.Raw("<") </div>
+        }
+
+        @for (int i = ViewBag.Current - ViewBag.Back; i < ViewBag.Current; i++)
+        {
+            <a class="page" data-page="@(i)">
+                @(i + 1)
+            </a>
+        }
+
+        <div class="page page-act">
+            @(ViewBag.Current + 1)
+        </div>
+
+        @for (int i = ViewBag.Current + 1; i <= ViewBag.Current + ViewBag.Next; i++)
+        {
+            <a class="page" data-page="@(i)">
+                @(i + 1)
+            </a>
+        }
+
+        @if (ViewBag.Current + 1 <= ViewBag.Current + ViewBag.Next)
+        {
+            <a class="page" data-page="@(ViewBag.Current + 1)">
+                @Html.Raw(">")
+            </a>
+        }
+        else
+        {
+            <div class="page page-dis">
+                @Html.Raw(">")
+            </div>
+        }
+    </div>
+</div>

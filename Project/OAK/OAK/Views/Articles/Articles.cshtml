@@ -1,22 +1,70 @@
-﻿@model List<Article>
+﻿@model string
 
 <div>
-    @foreach (var item in Model)
-    {
-        @await Html.PartialAsync("_HalfArticlePartial", item)
-    }
-
-    <div class="botton">
-        <a class="a_botton" asp-controller="Articles" asp-action= "@ViewBag.Action"
-           asp-route-start="@(--ViewBag.Start)">
-            Назад
-        </a>
+    <div class="sort-container">
+        <div id="news" class="sort" data-sort="@((int)Sort.News)">
+            <img height="40" width="40" src="~/icons/oak sort.png" />
+            <span style="margin-top:5px; margin-left:15px">Новое</span>
+        </div>
+        <div id="popular" class="sort" data-sort="@((int)Sort.Popular)">
+            <img height="40" width="40" src="~/icons/like no.png" />
+            <span style="margin-top:5px; margin-left:15px">Рейтинговые</span>
+        </div>
+        <div id="watched" class="sort" data-sort="@((int)Sort.Watched)">
+            <img height="40" width="40" src="~/icons/views.png" />
+            <span style="margin-top:5px; margin-left:15px">Просматриваемые</span>
+        </div>
     </div>
 
-    <div class="botton">
-        <a class="a_botton" asp-controller="Articles" asp-action="@ViewBag.Action"
-           asp-route-start="@((Model.Count != 0) ? ViewBag.Start + 2 : 0)">
-            Ещё
-        </a>
-    </div>
+    <div id="articles" data-url="@(Url.Action(Model) + "?id=" + ViewBag.ID)"></div>
 </div>
+
+@section Scripts{
+    <script src="~/js/jsSetSort.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var url = "";
+        var page = 0;
+        var sort = 0;
+        var articles;
+
+        $(document).ready(function () {
+            url = $("#articles").data("url");
+
+            articles = function (p, s) {
+                query = url + "&page=" + p + "&sort=" + s;
+                $.get(query).done(function (data) {
+                    $("#articles").html(data);
+                });
+            }
+
+            articles(page, sort);
+            News(true);
+
+
+            $("#articles").on("click", "a[data-page]", function () {
+                page = $(this).data("page");
+                articles(page, sort);
+            });
+
+            $(".sort").click(function () {
+                if ($(this).attr("id") == "news") {
+                    News(true);
+                    Popular(false);
+                    Watched(false);
+
+                } else if ($(this).attr("id") == "popular") {
+                    News(false);
+                    Popular(true);
+                    Watched(false);
+
+                } else if ($(this).attr("id") == "watched") {
+                    News(false);
+                    Popular(false);
+                    Watched(true);
+                }
+                sort = $(this).data("sort");
+                articles(page, sort);
+            });
+        });
+    </script>
+} 

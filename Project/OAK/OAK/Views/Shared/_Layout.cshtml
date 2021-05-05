@@ -17,5 +17,8 @@
         @await Html.PartialAsync("_FooterPartial")
 
     </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

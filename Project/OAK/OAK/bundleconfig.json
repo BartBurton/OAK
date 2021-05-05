@@ -24,5 +24,17 @@
     "inputFiles": [
       "wwwroot/js/jsEditCreateArticle.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jsSetLike.min.js",
+    "inputFiles": [
+      "wwwroot/js/jsSetLike.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jsSetSort.min.js",
+    "inputFiles": [
+      "wwwroot/js/jsSetSort.js"
+    ]
   }
 ]

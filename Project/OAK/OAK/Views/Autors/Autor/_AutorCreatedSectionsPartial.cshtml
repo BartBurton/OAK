@@ -10,14 +10,14 @@
         <p class="liced_articles_title">Созданные ветви</p>
     </a>
 
+    <p class="profile_howmuch">Ветвей: @ViewBag.CountOfSections</p>
     @if (Model.ID == CurrentUser?.ID)
     {
-        <p class="profile_howmuch">Ветвей: @ViewBag.CountOfSections</p>
         <a class="a_botton" asp-controller="EditSection" asp-action="EditCreate">
             <img class="profile_make" src="~/icons/write.png">
         </a>
-        <br><br><br><br>
     }
+    <br><br><br><br>
     <div class="liced_sections">
         @{
             var sections = Model.Sections;

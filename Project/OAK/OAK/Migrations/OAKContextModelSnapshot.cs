@@ -19,6 +19,21 @@ namespace OAK.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
+            modelBuilder.Entity("ArticleAutor", b =>
+                {
+                    b.Property<long>("LikedID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LikesID")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("LikedID", "LikesID");
+
+                    b.HasIndex("LikesID");
+
+                    b.ToTable("ArticleAutor");
+                });
+
             modelBuilder.Entity("OAK.Models.ArtImage", b =>
                 {
                     b.Property<long>("ID")
@@ -107,6 +122,9 @@ namespace OAK.Migrations
                     b.Property<long>("SectionID")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("AutorID");
@@ -171,6 +189,21 @@ namespace OAK.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("ArticleAutor", b =>
+                {
+                    b.HasOne("OAK.Models.Article", null)
+                        .WithMany()
+                        .HasForeignKey("LikedID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OAK.Models.Autor", null)
+                        .WithMany()
+                        .HasForeignKey("LikesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OAK.Models.ArtImage", b =>
                 {
                     b.HasOne("OAK.Models.Article", "Article")
@@ -208,7 +241,9 @@ namespace OAK.Migrations
                 {
                     b.HasOne("OAK.Models.Autor", "Autor")
                         .WithMany("Articles")
-                        .HasForeignKey("AutorID");
+                        .HasForeignKey("AutorID")
+                        .HasConstraintName("FK_Articles_Autor")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("OAK.Models.Section", "Section")
                         .WithMany("Articles")
@@ -225,7 +260,9 @@ namespace OAK.Migrations
                 {
                     b.HasOne("OAK.Models.Autor", "Autor")
                         .WithMany("Sections")
-                        .HasForeignKey("AutorID");
+                        .HasForeignKey("AutorID")
+                        .HasConstraintName("FK_Sections_Autor")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("OAK.Models.Section", "Parent")
                         .WithMany("Children")
