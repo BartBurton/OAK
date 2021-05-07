@@ -4,7 +4,7 @@
     <div class="sort-container">
         <div id="news" class="sort" data-sort="@((int)Sort.News)">
             <img height="40" width="40" src="~/icons/oak sort.png" />
-            <span style="margin-top:5px; margin-left:15px">Новое</span>
+            <span style="margin-top:5px; margin-left:15px">Новые</span>
         </div>
         <div id="popular" class="sort" data-sort="@((int)Sort.Popular)">
             <img height="40" width="40" src="~/icons/like no.png" />
@@ -16,6 +16,9 @@
         </div>
     </div>
 
+    <div id="loader" class="sort-container" style="margin-top:10px"></div>
+
+
     <div id="articles" data-url="@(Url.Action(Model) + "?id=" + ViewBag.ID)"></div>
 </div>
 
@@ -23,45 +26,54 @@
     <script src="~/js/jsSetSort.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
         var url = "";
-        var page = 0;
-        var sort = 0;
+        var page = @Html.Raw((int)ViewBag.Page);
+        var sort = @Html.Raw((int)ViewBag.Sort);
+        var action = "@Html.Raw(ViewBag.Action + "?id=" + ViewBag.ID)";
         var articles;
+
+
+        function focusSort(sort) {
+            News(sort == @Html.Raw((int)Sort.News));
+            Popular(sort == @Html.Raw((int)Sort.Popular));
+            Watched(sort == @Html.Raw((int)Sort.Watched));
+        }
+
+        function loader(flag) {
+            if (flag) {
+                $("#loader").html("<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>");
+            } else {
+                $("#loader").html("");
+            }
+        }
 
         $(document).ready(function () {
             url = $("#articles").data("url");
 
             articles = function (p, s) {
+                focusSort(s);
                 query = url + "&page=" + p + "&sort=" + s;
+                history.pushState("", "", action + "&page=" + p + "&sort=" + s);
+
+                loader(true);
+                $("#articles").html("");
+
+
                 $.get(query).done(function (data) {
                     $("#articles").html(data);
+                    loader(false);
                 });
             }
 
             articles(page, sort);
-            News(true);
 
 
             $("#articles").on("click", "a[data-page]", function () {
                 page = $(this).data("page");
                 articles(page, sort);
+                window.scrollTo(0, 0);
             });
 
-            $(".sort").click(function () {
-                if ($(this).attr("id") == "news") {
-                    News(true);
-                    Popular(false);
-                    Watched(false);
-
-                } else if ($(this).attr("id") == "popular") {
-                    News(false);
-                    Popular(true);
-                    Watched(false);
-
-                } else if ($(this).attr("id") == "watched") {
-                    News(false);
-                    Popular(false);
-                    Watched(true);
-                }
+            $(".sort").on("click", function () {
                 sort = $(this).data("sort");
                 articles(page, sort);
             });

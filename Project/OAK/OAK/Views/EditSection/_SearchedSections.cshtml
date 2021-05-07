@@ -1,0 +1,9 @@
+﻿@model List<(long?, string)>
+@{
+    List<(long? value, string name)> Sections = Model;
+}
+
+@foreach (var s in Sections)
+{
+    <div class="modal-item" data-value="@s.value">@s.name</div>
+}

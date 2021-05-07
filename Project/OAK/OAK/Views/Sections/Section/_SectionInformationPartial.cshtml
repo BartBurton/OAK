@@ -5,32 +5,6 @@
     Autor CurrentUser = User.GetCurrentUser().Result;
 }
 
-<style>
-    .no-parent {
-        float: left;
-        font-size: 14pt;
-        color: #747a8d;
-        padding: 2px 10px 3px 10px;
-        margin-bottom: 10px;
-    }
-
-    .parent {
-        float: left;
-        font-size: 15pt;
-        font-weight: bold;
-        border-radius: 5px;
-        border: 1px solid #747a8d;
-        color: #747a8d;
-        padding: 2px 10px 3px 10px;
-        margin-bottom: 10px;
-    }
-
-        .parent:hover {
-            margin-bottom: 6px;
-            border-bottom: 5px solid #747a8d;
-        }
-</style>
-
 <div style="margin-left:50px;">
     @if (Model.Parent is null)
     {
@@ -59,9 +33,9 @@
 
         <p class="section_inf_name">@Model.Name</p>
 
-        @if (Model.AutorID == CurrentUser?.ID)
+        @if (CurrentUser != null && Model.AutorID == CurrentUser?.ID)
         {
-            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.ID" target="_blank">
+            <a asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.ID">
                 <img class="profile_settings" src="~/icons/settings.png">
             </a>
         }

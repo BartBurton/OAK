@@ -59,7 +59,7 @@ namespace OAK.Controllers
 
             await Authenticate(model.Email);
 
-            return RedirectToAction("News", "Articles");
+            return RedirectToAction("All", "Articles");
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace OAK.Controllers
 
             await Authenticate(model.Email);
 
-            return RedirectToAction("News", "Articles");
+            return RedirectToAction("All", "Articles");
         }
 
 
@@ -281,7 +281,7 @@ namespace OAK.Controllers
 
             await Authenticate(autor.Email);
 
-            return RedirectToAction("News", "Articles");
+            return RedirectToAction("All", "Articles");
         }
 
 

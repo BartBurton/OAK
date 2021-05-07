@@ -11,6 +11,7 @@ namespace OAK.Models
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public int Views { get; set; } = 0;
+        public int LikesCount { get; set; } = 0;
 
         public long? AutorID { get; set; }
         public long SectionID { get; set; }

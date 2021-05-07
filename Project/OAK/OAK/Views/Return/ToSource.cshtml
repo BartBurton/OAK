@@ -1,0 +1,7 @@
+﻿@model int
+@section Scripts{ 
+    <script>
+        var src = @Html.Raw((int)Model);
+        history.go(src - history.length);
+    </script>
+}

@@ -2,38 +2,70 @@
 
 <form asp-controller="EditSection" asp-action="EditCreate" asp-route-id="@Model.Id" method="post">
 
-    <label class="edit_section_record" asp-for="Parent">Родительская ветвь:</label>
-    <select class="edit_section_parent" asp-for="Parent">
-
-        <option value="@null" class="edit_section_parent_section">...</option>
-        @{
-            List<Section> sections = ViewData["Sections"] as List<Section>;
-
-            Section selected = sections.Find(s => s.ID == Model.Parent);
-            if (selected != null)
-            {
-                @:<option value="@selected.ID" class="edit_section_parent_section" selected>@selected.Name</option>
-                sections.Remove(selected);
-            }
-
-            foreach (var item in sections)
-            {
-                <option value="@item.ID" class="edit_section_parent_section">@item.Name</option>
-            }
-        }
+    <div id="sections-record" class="record">
+        <label asp-for="Parent">Родительская ветвь: <b></b></label>
+    </div>
+    <select asp-for="Parent" hidden>
+        <option value="@Model.Parent" selected>@ViewBag.ParentName</option>
     </select>
+    <div class="bottom-section">
+        <button id="select-section" type="button" class="standart_buttom">Выбрать</button>
+    </div>
+    <div id="sections" data-url="@(Url.Action("GetSections") + "?id=" + Model.Id + "&requered=" + false)"></div>
 
-    <label class="edit_section_record" asp-for="Name">Название:</label>
-    <input class="edit_profile_name edit_section_name" asp-for="Name">
+
+    <div class="record">
+        <label asp-for="Name">Название:</label>
+    </div>
+    <input class="section-input" asp-for="Name">
+    <br>
     <br>
     <span class="field_validation" asp-validation-for="Name"></span>
-    <br>
+    <br><br><br>
+    <br><br><br>
 
-    <button class="standart_buttom edit_profile_botton">Сохранить</button>
+
+    <div class="bottom-section">
+        <button class="standart_buttom">Сохранить</button>
+    </div>
 </form>
 
-<div class="out edit_profile_drop">
-    <a class="a_botton" asp-controller="EditSection" asp-action="Drop" asp-route-id="@Model.Id">
+<div class="out out-bottom">
+    <a id="drop" class="a_botton" asp-controller="EditSection" asp-action="Drop" asp-route-id="@Model.Id">
         Удалить
     </a>
 </div>
+
+
+@section Scripts{
+    <script>
+        var src = @Html.Raw((int)ViewBag.Source);
+
+        $(document).ready(function () {
+            if (src == -1) {
+                $("form").attr("action", $("form").attr("action") + "?source=" + (history.length - 1));
+                $("#drop").attr("href", $("#drop").attr("href") + "?source=" + (history.length - 1));
+            } else {
+                $("form").attr("action", $("form").attr("action") + "?source=" + @Html.Raw((int)ViewBag.Source));
+                $("#drop").attr("href", $("#drop").attr("href") + "?source=" + @Html.Raw((int)ViewBag.Source));
+            }
+
+            $("#sections-record > label > b")
+                .html($("select option:selected").text());
+
+            $("#select-section").click(function () {
+                $.get($("#sections").data("url")).done(function (data) {
+                    $("#sections").html(data);
+                });
+            });
+
+            $("#sections").on("click", ".modal-item[data-value]", function () {
+                $("#sections-record > label > b").html($(this).text());
+
+                $("select").html("<option value=\"" + $(this).data("value") + "\"></option>");
+
+                $("#sections").html("");
+            });
+        });
+    </script>
+}

@@ -6,19 +6,50 @@
         @await Html.PartialAsync("_HalfSectionPartial", item)
     }
 
-    <div class="nextback">
-        <div class="botton">
-            <a class="a_botton" asp-controller="Sections" asp-action="@ViewBag.Action"
-               asp-route-start="@(--ViewBag.Start)">
-                Назад
-            </a>
-        </div>
+    <div class="sort-container">
+        <div class="page-container">
 
-        <div class="botton">
-            <a class="a_botton" asp-controller="Sections" asp-action="@ViewBag.Action"
-               asp-route-start="@((Model.Count != 0) ? ViewBag.Start + 2 : 0)">
-                Ещё
-            </a>
+            @if (ViewBag.Current - 1 >= 0)
+            {
+                <a class="page" asp-controller="Sections" asp-action="@ViewBag.Action" asp-route-id="@ViewBag.ID" asp-route-page="@(ViewBag.Current - 1)">
+                    @Html.Raw("<")
+                </a>
+            }
+            else
+            {
+                <div class="page page-dis"> @Html.Raw("<") </div>
+            }
+
+            @for (int i = ViewBag.Current - ViewBag.Back; i < ViewBag.Current; i++)
+            {
+                <a class="page" asp-controller="Sections" asp-action="@ViewBag.Action" asp-route-id="@ViewBag.ID" asp-route-page="@(i)">
+                    @(i + 1)
+                </a>
+            }
+
+            <div class="page page-act">
+                @(ViewBag.Current + 1)
+            </div>
+
+            @for (int i = ViewBag.Current + 1; i <= ViewBag.Current + ViewBag.Next; i++)
+            {
+                <a class="page" asp-controller="Sections" asp-action="@ViewBag.Action" asp-route-id="@ViewBag.ID" asp-route-page="@(i)">
+                    @(i + 1)
+                </a>
+            }
+
+            @if (ViewBag.Current + 1 <= ViewBag.Current + ViewBag.Next)
+            {
+                <a class="page" asp-controller="Sections" asp-action="@ViewBag.Action" asp-route-id="@ViewBag.ID" asp-route-page="@(ViewBag.Current + 1)">
+                    @Html.Raw(">")
+                </a>
+            }
+            else
+            {
+                <div class="page page-dis">
+                    @Html.Raw(">")
+                </div>
+            }
         </div>
     </div>
 </div>

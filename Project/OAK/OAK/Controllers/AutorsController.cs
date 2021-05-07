@@ -19,7 +19,7 @@ namespace OAK.Controllers
         public async Task<IActionResult> Autor(long id)
         {
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.ID == id);
-            if (autor == null) return RedirectToAction("News", "Articles");
+            if (autor == null) return RedirectToAction("Error", "Articles");
 
             await _oak.Entry(autor).Collection(a => a.Articles)
                 .Query()

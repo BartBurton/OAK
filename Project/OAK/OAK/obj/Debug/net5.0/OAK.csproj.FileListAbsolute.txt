@@ -923,3 +923,7 @@ C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\bin\Debug\net5.0\MimeKit.dll
 C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\Article\_jsSetLikePartial.cshtml.g.cs
 C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\_ArticlesPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditSection\_AllSectionsPartial.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\EditSection\_SearchedSections.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Articles\Error.cshtml.g.cs
+C:\Users\MAXXXYMIRON\Desktop\OAK\Project\OAK\OAK\obj\Debug\net5.0\Razor\Views\Return\ToSource.cshtml.g.cs

@@ -6,7 +6,7 @@
 
 <div class="liced_articles">
 
-    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.ID">
+    <a class="a_botton" asp-controller="Articles" asp-action="Created" asp-route-id="@Model.ID">
         <p class="liced_articles_title">Созданные статьи</p>
     </a>
 
@@ -27,7 +27,7 @@
         }
     }
 
-    <a class="a_botton" asp-controller="Articles" asp-action="CreatedArticles" asp-route-id="@Model.ID">
+    <a class="a_botton" asp-controller="Articles" asp-action="Created" asp-route-id="@Model.ID">
         <p class="liced_articles_dots">. . .</p>
     </a>
 </div>

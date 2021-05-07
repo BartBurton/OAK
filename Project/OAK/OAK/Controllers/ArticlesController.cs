@@ -22,7 +22,7 @@ namespace OAK.Controllers
         public async Task<IActionResult> Article(long? id)
         {
             var model = await _oak.Articles.FirstOrDefaultAsync(m => m.ID == id);
-            if (model is null) return RedirectToAction("News", "Articles");
+            if (model is null) return RedirectToAction("Error", "Articles");
 
             await _oak.Entry(model).Reference(m => m.Autor).LoadAsync();
             await _oak.Entry(model).Reference(m => m.Section).LoadAsync();
@@ -39,12 +39,10 @@ namespace OAK.Controllers
             model.Views++;
             await _oak.SaveChangesAsync();
 
-            await _oak.Entry(model).Collection(m => m.Likes).LoadAsync();
-            ViewBag.Likes = model.Likes.Count;
-
             ViewBag.Title = $"Статья - {model.Name}";
             return View(model);
         }
+
 
         public IActionResult ArticleIsLiked(int id)
         {
@@ -59,9 +57,9 @@ namespace OAK.Controllers
 
             _oak.Entry(autor).Collection(a => a.Liked).Load();
             if (autor.Liked.Any(a => a.ID == id))
-                { access = "like"; }
+            { access = "like"; }
             else
-                { access = "no like"; }
+            { access = "no like"; }
 
             return Json(access);
         }
@@ -81,57 +79,63 @@ namespace OAK.Controllers
             if (autor is null)
             {
                 access = "none";
-                return Json(new { access = access, count = article.Likes.Count });
+                return Json(new { access = access, count = article.LikesCount });
             }
-
 
             _oak.Entry(autor).Collection(a => a.Liked).Load();
             if (autor.Liked.Contains(article))
             {
                 autor.Liked.Remove(article);
+                article.LikesCount--;
                 _oak.SaveChanges();
-                access = "no like"; 
+                access = "no like";
             }
             else
-            { 
+            {
                 autor.Liked.Add(article);
+                article.LikesCount++;
                 _oak.SaveChanges();
                 access = "like";
             }
 
-            return Json(new { access = access, count = article.Likes.Count });
+            return Json(new { access = access, count = article.LikesCount });
         }
 
 
 
-        public IActionResult All(int page = 0)
+        public IActionResult All(int? id, int page = 0, Sort sort = Sort.News)
         {
             ViewBag.ID = 0;
+            ViewBag.Page = page;
+            ViewBag.Sort = sort;
+            ViewBag.Action = $"/Articles/{(nameof(All))}";
             ViewBag.Title = "Статьи";
-            return View("Articles", "AllArticles");
+            return View("Articles", nameof(AllArticles));
         }
 
         public async Task<IActionResult> AllArticles(int? id, int page = 0, Sort sort = Sort.News)
         {
             List<Article> articles;
+
             switch (sort)
             {
                 case Sort.News:
                     articles = await _oak.Articles.OrderByDescending(a => a.Date).ToListAsync();
                     break;
+
                 case Sort.Popular:
-                    articles = await _oak.Articles
-                        .Include(a => a.Likes)
-                        .OrderByDescending(a => a.Likes.Count)
-                        .ToListAsync();
+                    articles = await _oak.Articles.OrderByDescending(a => a.LikesCount).ToListAsync();
                     break;
+
                 case Sort.Watched:
                     articles = await _oak.Articles.OrderByDescending(a => a.Views).ToListAsync();
                     break;
+
                 default:
                     articles = await _oak.Articles.OrderByDescending(a => a.Date).ToListAsync();
                     break;
             }
+
             articles = articles
                 .Skip(page * COUNT_OF_RECORDS)
                 .Take(COUNT_OF_RECORDS).ToList();
@@ -144,7 +148,6 @@ namespace OAK.Controllers
                 await _oak.Entry(article).Collection(a => a.ArtImages)
                     .Query().Take(1).LoadAsync();
             }
-                
 
             ViewBag.Current = page;
 
@@ -159,50 +162,150 @@ namespace OAK.Controllers
         }
 
 
-        public async Task<IActionResult> CreatedArticles(long? id, int start = 0)
+        public async Task<IActionResult> Created(long? id, int page = 0, Sort sort = Sort.News)
         {
-            start = (start >= 0) ? start : 0;
-            ViewBag.Start = start;
-            ViewBag.Action = "CreatedArticles";
+            ViewBag.ID = id;
+            ViewBag.Page = page;
+            ViewBag.Sort = sort;
+            ViewBag.Action = $"/Articles/{(nameof(Created))}";
 
             var autor = await _oak.Autors.FirstOrDefaultAsync(a => a.ID == id);
-            if (autor is null) return View("Articles", new List<Autor>());
+            ViewBag.Title = $"Статьи автора - {(autor is null ? "*" : autor.Name)}";
 
-            await _oak.Entry(autor).Collection(a => a.Articles)
-                .Query()
-                .OrderByDescending(ar => ar.Date)
-                .Skip(start * COUNT_OF_RECORDS)
-                .Take(COUNT_OF_RECORDS)
-                .Include(ar => ar.Section)
-                .Include(ar => ar.ArtTexts.Take(1))
-                .Include(ar => ar.ArtImages.Take(1))
-                .LoadAsync();
-
-            ViewBag.Title = $"Статьи автора - {autor.Name}";
-            return View("Articles", autor.Articles.ToList());
+            return View("Articles", nameof(CreatedArticles));
         }
 
-        public async Task<IActionResult> ArticlesSection(long? id, int start = 0)
+        public async Task<IActionResult> CreatedArticles(long? id, int page = 0, Sort sort = Sort.News)
         {
-            start = (start >= 0) ? start : 0;
-            ViewBag.Start = start;
-            ViewBag.Action = "ArticlesSection";
+            var autor = await _oak.Autors.FirstOrDefaultAsync(a => a.ID == id);
+            if (autor is null) return PartialView("_ArticlesPartial", new List<Article>());
+
+            List<Article> articles;
+            switch (sort)
+            {
+                case Sort.News:
+                    await _oak.Entry(autor).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Date)
+                        .LoadAsync();
+                    break;
+
+                case Sort.Popular:
+                    await _oak.Entry(autor).Collection(a => a.Articles)
+                        .Query().OrderByDescending(a => a.LikesCount)
+                        .LoadAsync();
+                    break;
+
+                case Sort.Watched:
+                    await _oak.Entry(autor).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Views)
+                        .LoadAsync();
+                    break;
+
+                default:
+                    await _oak.Entry(autor).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Date)
+                        .LoadAsync();
+                    break;
+            }
+
+            articles = autor.Articles.Skip(page * COUNT_OF_RECORDS).Take(COUNT_OF_RECORDS).ToList();
+            foreach (var article in articles)
+            {
+                await _oak.Entry(article).Reference(a => a.Autor).LoadAsync();
+                await _oak.Entry(article).Reference(a => a.Section).LoadAsync();
+                await _oak.Entry(article).Collection(a => a.ArtTexts)
+                    .Query().Take(1).LoadAsync();
+                await _oak.Entry(article).Collection(a => a.ArtImages)
+                    .Query().Take(1).LoadAsync();
+            }
+
+            ViewBag.Current = page;
+
+            page++;
+            int pages = autor.Articles.Count() / COUNT_OF_RECORDS;
+            if (autor.Articles.Count() % COUNT_OF_RECORDS != 0) pages++;
+
+            ViewBag.Back = (page > COUNT_OF_PAGES) ? COUNT_OF_PAGES : page - 1;
+            ViewBag.Next = (page < pages - COUNT_OF_PAGES) ? COUNT_OF_PAGES : pages - page;
+
+            return PartialView("_ArticlesPartial", articles);
+        }
+
+
+        public async Task<IActionResult> FromSection(long? id, int page = 0, Sort sort = Sort.News)
+        {
+            ViewBag.ID = id;
+            ViewBag.Page = page;
+            ViewBag.Sort = sort;
+            ViewBag.Action = $"/Articles/{(nameof(FromSection))}";
 
             var section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
-            if (section is null) return View("Articles", new List<Article>());
+            ViewBag.Title = $"Статьи ветви - {(section is null ? "*" : section.Name)}";
 
-            await _oak.Entry(section).Collection(ы => ы.Articles)
-                .Query()
-                .OrderByDescending(ar => ar.Date)
-                .Skip(start * COUNT_OF_RECORDS)
-                .Take(COUNT_OF_RECORDS)
-                .Include(ar => ar.Autor)
-                .Include(ar => ar.ArtTexts.Take(1))
-                .Include(ar => ar.ArtImages.Take(1))
-                .LoadAsync();
+            return View("Articles", nameof(FromSectionArticle));
+        }
 
-            ViewBag.Title = $"Статьи ветви - {section.Name}";
-            return View("Articles", section.Articles.ToList());
+        public async Task<IActionResult> FromSectionArticle(long? id, int page = 0, Sort sort = Sort.News)
+        {
+            var section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
+            if (section is null) return PartialView("_ArticlesPartial", new List<Article>());
+
+            List<Article> articles;
+            switch (sort)
+            {
+                case Sort.News:
+                    await _oak.Entry(section).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Date)
+                        .LoadAsync();
+                    break;
+
+                case Sort.Popular:
+                    await _oak.Entry(section).Collection(a => a.Articles)
+                        .Query().OrderByDescending(a => a.LikesCount)
+                        .LoadAsync();
+                    break;
+
+                case Sort.Watched:
+                    await _oak.Entry(section).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Views)
+                        .LoadAsync();
+                    break;
+
+                default:
+                    await _oak.Entry(section).Collection(a => a.Articles)
+                        .Query().OrderByDescending(ar => ar.Date)
+                        .LoadAsync();
+                    break;
+            }
+
+            articles = section.Articles.Skip(page * COUNT_OF_RECORDS).Take(COUNT_OF_RECORDS).ToList();
+            foreach (var article in articles)
+            {
+                await _oak.Entry(article).Reference(a => a.Autor).LoadAsync();
+                await _oak.Entry(article).Reference(a => a.Section).LoadAsync();
+                await _oak.Entry(article).Collection(a => a.ArtTexts)
+                    .Query().Take(1).LoadAsync();
+                await _oak.Entry(article).Collection(a => a.ArtImages)
+                    .Query().Take(1).LoadAsync();
+            }
+
+            ViewBag.Current = page;
+
+            page++;
+            int pages = section.Articles.Count() / COUNT_OF_RECORDS;
+            if (section.Articles.Count() % COUNT_OF_RECORDS != 0) pages++;
+
+            ViewBag.Back = (page > COUNT_OF_PAGES) ? COUNT_OF_PAGES : page - 1;
+            ViewBag.Next = (page < pages - COUNT_OF_PAGES) ? COUNT_OF_PAGES : pages - page;
+
+            return PartialView("_ArticlesPartial", articles);
+        }
+
+
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

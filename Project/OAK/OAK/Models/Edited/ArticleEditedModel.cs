@@ -19,8 +19,6 @@ namespace OAK.Models.Edited
         [Required]
         public long Section { get; set; }
 
-        public DateTime DateTime { get; set; }
-
         private List<(string Type, short Number, byte[] Data)> _content { get; set; } =
             new List<(string Type, short Number, byte[] Data)>();
 
@@ -32,7 +30,6 @@ namespace OAK.Models.Edited
 
         public ArticleEditedModel()
         {
-            DateTime = System.DateTime.Now;
         }
 
         public void FromArticle(Article article)
@@ -46,13 +43,11 @@ namespace OAK.Models.Edited
             _content.AddRange(from i in article.ArtImages select ("img", i.Number, i.Image));
         }
 
-        public void ToArticle(Article article, Autor autor, Section section)
+        public void ToArticle(Article article, Autor autor)
         {
             article.Name = Name;
-            article.Date = DateTime;
             article.Autor = autor;
             article.SectionID = Section;
-            article.Section = section;
 
             article.ArtTexts = (from t in Content
                                 where t.Type == "text"
@@ -159,9 +154,6 @@ namespace OAK.Models.Edited
             }
             delExcessContent(request);
         }
-
-        static public bool HaveArticle(Autor autor, Article article)
-            => autor.Articles.Contains(article);
 
         public bool IsCorrect
             => _content.Any(e => e.Type == "text") && _content.Any(e => e.Type == "img");

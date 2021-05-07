@@ -40,9 +40,9 @@
     <h1 class="article_title">@Model.Name</h1>
 
 
-    @if (Model.AutorID == CurrentUser?.ID)
+    @if (CurrentUser != null && Model.AutorID == CurrentUser?.ID)
     {
-        <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID" target="_blank">
+        <a asp-controller="EditArticle" asp-action="EditCreate" asp-route-id="@Model.ID">
             <img class="profile_settings" src="~/icons/settings.png">
         </a>
     }
@@ -73,7 +73,7 @@
 
     <div id="like" style="cursor:pointer;" data-url="@(Url.Action("SetLike") + "?id=" + Model.ID)">
         <img class="article-likes" src="~/icons/favorite no.png" />
-        <p class="article-likes-count">@ViewBag.Likes</p>
+        <p class="article-likes-count">@Model.LikesCount</p>
     </div>
 </div>
 
@@ -82,12 +82,12 @@
         $(document).ready(function () {
 
             $.get("@(Url.Action("ArticleIsLiked") + "?id=" + Model.ID)").done(function (data) {
-                SetLike(data);
+                SetLike(data, "#like");
             });
 
             $("#like").click(function () {
                 $.get($(this).data("url")).done(function (data) {
-                    SetLike(data.access);
+                    SetLike(data.access, "#like");
                     $("#like > p").text(data.count);
                 });
             });

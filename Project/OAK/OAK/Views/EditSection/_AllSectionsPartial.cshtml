@@ -1,0 +1,37 @@
+﻿@model List<(long?, string)>
+@{
+    List<(long? value, string name)> Sections = Model;
+}
+
+<div class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <input class="modal-input" id="search" type="text"
+                   data-url="@("/EditSection/SearchSection?id=" + ViewBag.ID + "&requered=" + ViewBag.Requered + "&searched=")" />
+        </div>
+
+        <div class="modal-body">
+            @foreach (var s in Sections)
+            {
+                <div class="modal-item" data-value="@s.value">@s.name</div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function getSearh(input) {
+        $.get(input.data("url") + encodeURIComponent(input.val())).done(function (data) {
+            $(".modal-body").html(data);
+        });
+    }
+
+    $("#search").on("keyup", function () {
+        var input = $(this);
+        var delay = 500;
+
+        clearTimeout(input.data("timeout"));
+        input.data("timeout", setTimeout(getSearh, delay, input));
+    });
+</script>

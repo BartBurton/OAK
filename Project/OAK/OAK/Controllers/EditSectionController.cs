@@ -22,45 +22,113 @@ namespace OAK.Controllers
         [HttpGet]
         public async Task<IActionResult> EditCreate(long? id)
         {
-            List<Section> sections = await _oak.Sections.ToListAsync();
             SectionEditedModel model = new SectionEditedModel();
 
             if (id != null)
             {
                 Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
-                if (autor is null) RedirectToAction("News", "Articles");
+                if (autor is null) return RedirectToAction("All", "Articles");
 
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
-                if (section is null) RedirectToAction("News", "Articles");
+                if (section is null) return RedirectToAction("Error", "Articles");
 
-                if (!SectionEditedModel.HaveSection(autor, section))
-                {
-                    return RedirectToAction("Autor", "Autors", new { autor.ID });
-                }
+                if (section.AutorID != autor.ID) return RedirectToAction("All", "Articles");
 
+
+                await _oak.Entry(section).Reference(s => s.Parent).LoadAsync();
+                ViewBag.ParentName = (section.Parent is null) ? "..." : section.Parent.Name;
                 model.FromSection(section);
-                model.RemoveChildren(sections);
+            }
+            else
+            {
+                ViewBag.ParentName = "...";
             }
 
-            ViewData["Sections"] = sections;
+            ViewBag.Source = -1;
             ViewBag.Title = "Работа над ветвью";
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditCreate(long? id, SectionEditedModel model)
+        public async Task<IActionResult> GetSections(long? id, bool requered)
         {
-            List<Section> sections = await _oak.Sections.ToListAsync();
+            List<Section> query = await _oak.Sections.ToListAsync();
             if (id != null)
             {
-                model.RemoveChildren(sections);
+                var section = query.First(s => s.ID == id);
+                query.Remove(section);
+                if (section.Children != null)
+                {
+                    List<Section> children = section.Children.ToList();
+                    while (children.Count != 0)
+                    {
+                        if (children[0].Children != null)
+                            children.AddRange(children[0].Children);
+
+                        query.Remove(children[0]);
+                        children.RemoveAt(0);
+                    }
+                }
             }
-            ViewData["Sections"] = sections;
+            List<(long?, string)> sections = query.Select(q => ((long?)q.ID, q.Name)).ToList();
+            if (!requered)
+            {
+                sections.Insert(0, (null, "..."));
+            }
+
+            ViewBag.ID = id;
+            ViewBag.Requered = requered;
+            return PartialView("_AllSectionsPartial", sections);
+        }
+
+        public async Task<IActionResult> SearchSection(long? id, bool requered, string searched)
+        {
+            List<Section> query = await _oak.Sections.ToListAsync();
+            if (id != null)
+            {
+                var section = query.First(s => s.ID == id);
+                query.Remove(section);
+                if (section != null)
+                {
+                    List<Section> children = section.Children.ToList();
+                    while (children.Count != 0)
+                    {
+                        if (children[0].Children != null)
+                            children.AddRange(children[0].Children);
+
+                        query.Remove(children[0]);
+                        children.RemoveAt(0);
+                    }
+                }
+            }
+            if (string.IsNullOrEmpty(searched))
+                searched = "";
+
+            List<(long?, string)> sections = query
+                .Where(q => q.Name.ToLower().Contains(searched.ToLower()))
+                .Select(q => ((long?)q.ID, q.Name))
+                .ToList();
+
+            if (!requered)
+            {
+                sections.Insert(0, (null, "..."));
+            }
+            return PartialView("_SearchedSections", sections);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditCreate(long? id, int source, SectionEditedModel model)
+        {
+            ViewBag.Source = source;
 
             if (!model.IsUnique(await _oak.Sections.ToListAsync()))
             {
                 ModelState.AddModelError("Parent", "");
                 ModelState.AddModelError("Name", "Данная ветвь уже существует! Измените предка или название!");
+
+                Section selected = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Parent);
+                ViewBag.ParentName = (selected is null) ? "..." : selected.Name;
+
                 ViewBag.Title = "Работа над ветвью";
                 return View(model);
             }
@@ -68,12 +136,16 @@ namespace OAK.Controllers
             {
                 ModelState.AddModelError("Parent", "");
                 ModelState.AddModelError("Name", "Родительская и дочерняя ветви не могут совпадать!");
+
+                Section selected = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Parent);
+                ViewBag.ParentName = (selected is null) ? "..." : selected.Name;
+
                 ViewBag.Title = "Работа над ветвью";
                 return View(model);
             }
 
             Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
-            _oak.Entry(autor).Collection(a => a.Sections).Load();
+            if (autor is null) return RedirectToAction("All", "Articles");
 
             if (id == null)
             {
@@ -86,53 +158,48 @@ namespace OAK.Controllers
             else
             {
                 Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
-                if (!SectionEditedModel.HaveSection(autor, section))
-                {
-                    return RedirectToAction("Autor", "Autors", new { autor.ID });
-                }
+                if (section.AutorID != autor.ID) return RedirectToAction("All", "Articles");
+
                 model.ToSection(ref section, await _oak.Sections.FirstOrDefaultAsync(s => s.ID == model.Parent), autor);
 
                 _oak.SaveChanges();
             }
 
-            return RedirectToAction("Autor", "Autors", new { autor.ID });
+            //////////////////////
+            return RedirectToAction("ToSource", "Return", new { source });
         }
 
-        public async Task<IActionResult> Drop(long? id)
+        public async Task<IActionResult> Drop(long? id, int source)
         {
-            if (id == null) { return RedirectToAction("News", "Articles"); }
+            Autor autor = await _oak.Autors.FirstOrDefaultAsync(a => a.Email == User.Identity.Name);
+            if (autor is null) return RedirectToAction("All", "Articles");
 
-            Autor autor = await _oak.Autors.Where(a => a.Email == User.Identity.Name)
-                .Include(a => a.Sections)
-                .FirstOrDefaultAsync();
+            Section section = await _oak.Sections.FirstOrDefaultAsync(s => s.ID == id);
+            if (section is null) return RedirectToAction("Error", "Articles");
 
-            Section section = await _oak.Sections.Where(s => s.ID == id)
-                .Include(s => s.Children)
-                .FirstOrDefaultAsync();
+            if (section.AutorID != autor.ID) return RedirectToAction("All", "Articles");
 
-            if (!SectionEditedModel.HaveSection(autor, section)) { return RedirectToAction("Autor", "Autors", new { autor.ID }); }
 
-            Section[] sections;
+            await _oak.Entry(section).Collection(s => s.Children).LoadAsync();
             List<Section> children = section.Children.ToList();
-            while (children.Count != 0)
+            if(children != null)
             {
-                sections = children.ToArray();
-                children.Clear();
-
-                for (int i = 0; i < sections.Length; i++)
+                for (int i = 0; i < children.Count; i++)
                 {
-                    children.AddRange(_oak.Sections.Where(s => s.ID == sections[i].ID)
-                        .Include(s => s.Children)
-                        .FirstOrDefault()
-                        .Children);
+                    await _oak.Entry(children[i]).Collection(c => c.Children).LoadAsync();
+                    if(children[i].Children != null)
+                    {
+                        children.AddRange(children[i].Children);
+                    }
                 }
-
-                _oak.Sections.RemoveRange(sections);
             }
+            _oak.Sections.RemoveRange(children);
             _oak.Sections.Remove(section);
             _oak.SaveChanges();
 
-            return RedirectToAction("Autor", "Autors", new { autor.ID });
+
+            //////////////////////
+            return RedirectToAction("ToSource", "Return", new { source });
         }
     }
 }
